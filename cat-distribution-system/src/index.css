@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap');
+@import "tailwindcss";
+
+body {
+  margin: 0.5%;
+  padding: 0;
+  font-family: 'Rowdies', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--peachy);
+}
+
+:root {
+  --piglet: #FFD5D2;
+  --bubblegum: #f4a2b8;
+  --eggplant: #51294B;
+  --sunshine: #FFDD4D;
+  --peachy: #FFF1DE;
+  --orange: #F2B45A;
+}
