@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import React from "react";
-import ListPage from "./pages/list_page/ListPage";
+import MainPage from "./pages/main_page/MainPage";
 import "./index.css";
 
 
@@ -9,7 +9,7 @@ function App() {
       <div>
         <BrowserRouter>
           <Routes>
-            <Route path="" element={<ListPage/>}/>
+            <Route path="" element={<MainPage/>}/>
           </Routes>
         </BrowserRouter>
       </div>

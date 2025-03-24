@@ -1,7 +1,7 @@
 import React from "react";
-import "./ListPage.css"
+import "./MainPage.css"
 
-const ListPage = ({ catEntities, setCatEntities }) => {
+const MainPage = ({ catEntities, setCatEntities }) => {
     // const navigate = useNavigate();
     //
     // const [searchQuery, setSearchQuery] = useState("");
@@ -113,12 +113,22 @@ const ListPage = ({ catEntities, setCatEntities }) => {
     // };
 
 
+
     return (
         <div className="list-page-main">
+
+            <div className="all-rectangles-main navbar-main"/>
+
+            <div className="all-rectangles-main title-banner-main">
+                <div className="icon-main"><img src="https://i.imgur.com/EBpUlkS.png" alt="Icon" /></div>
+            </div>
+
+            <div  className="all-rectangles-main image-banner-main"/>
+
 
         </div>
     )
 };
 
 
-export default ListPage;
+export default MainPage;

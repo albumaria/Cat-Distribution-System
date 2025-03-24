@@ -2,8 +2,8 @@
 @import "tailwindcss";
 
 body {
-  margin: 0.5%;
   padding: 0;
+  margin: 0;
   font-family: 'Rowdies', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
