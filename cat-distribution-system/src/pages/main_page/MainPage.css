@@ -1,6 +1,6 @@
 .list-page-main {
+    height: auto;
     background-color: #FFF1DE;
-    height: 200vh;
     margin-left: 8%;
     margin-right: 8%;
     padding: 0;
@@ -33,13 +33,6 @@
     margin-bottom: 3vh;
 }
 
-.image-banner-main {
-    background-color: #51294B;
-    width: 100%;
-    height: 66vh;
-    margin-bottom: 3vh;
-}
-
 .icon-main {
     width: 12vh;
     height: 12vh;
@@ -50,4 +43,44 @@
     background-color: #51294B;
     padding: 5px;
     border: 5px solid #FFD5D2;
+}
+
+.image-banner-main {
+    background-color: #51294B;
+    width: 100%;
+    height: 66vh;
+    margin-bottom: 4vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 4%;
+    padding-right: 3%;
+}
+
+.orange-border-container-main {
+    width: 100%;
+    height: 33vh;
+    margin-bottom: 3vh;
+}
+
+.list-container-main {
+    background-color: aqua;
+    width: 100%;
+    height: 200vh;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.buttons-list-main {
+    background-color: #51294B;
+    width: 20vw;
+    height: 100%;
+}
+
+.cat-list-main {
+    background-color: #f4a2b8;
+    width: 62vw;
+    height: 100%;
 }
