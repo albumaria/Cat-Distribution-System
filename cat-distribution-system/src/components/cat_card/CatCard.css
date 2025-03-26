@@ -1,0 +1,26 @@
+.cat-card {
+    background-color: #FFD5D2;
+    border-radius: 2vh;
+    width: 18vw;
+    height: 38vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.cat-image {
+    width: 30vh;
+    height: 30vh;
+    object-fit: cover;
+    border-radius: 2.5vh;
+    background-color: #51294B;
+}
+
+.cat-name {
+    font-size: 4vh;
+    margin-top: 0.2vh;
+    font-weight: bold;
+    color: var(--eggplant);
+}

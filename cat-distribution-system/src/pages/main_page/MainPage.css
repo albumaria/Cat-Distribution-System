@@ -1,4 +1,4 @@
-.list-page-main {
+.main-page-main {
     height: auto;
     background-color: #FFF1DE;
     margin-left: 8%;
@@ -41,20 +41,26 @@
     align-items: center;
     justify-content: center;
     background-color: #51294B;
-    padding: 5px;
-    border: 5px solid #FFD5D2;
+    padding: 1vh;
+    border: 1vh solid #FFD5D2;
 }
 
 .image-banner-main {
     background-color: #51294B;
     width: 100%;
     height: 66vh;
-    margin-bottom: 4vh;
+    margin-bottom: 3vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-left: 4%;
     padding-right: 3%;
+}
+
+.empty-area-main {
+    width: 100%;
+    height: 60vh;
+    text-align: left;
 }
 
 .orange-border-container-main {
@@ -64,23 +70,45 @@
 }
 
 .list-container-main {
-    background-color: aqua;
     width: 100%;
-    height: 200vh;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: space-between;
+    margin-bottom: 3vh;
 }
 
 .buttons-list-main {
     background-color: #51294B;
     width: 20vw;
-    height: 100%;
 }
 
 .cat-list-main {
+    min-height: 100%;
     background-color: #f4a2b8;
     width: 62vw;
-    height: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vw;
+    padding: 3vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination-main {
+    width: 100%;
+    height: 8vh;
+    margin-bottom: 3vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.statistics-list-main {
+    background-color: #F2B45A;
+    width: 100%;
+    height: 60vh;
+    margin-bottom: 3vh;
 }

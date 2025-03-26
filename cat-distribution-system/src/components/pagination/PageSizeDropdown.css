@@ -1,0 +1,15 @@
+.container-dropdown {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-select {
+    font-size: 3vh;
+    border-radius: 1.5vh;
+    width: 4vw;
+    height: 3vw;
+    background-color: #fab3c5;
+    cursor: pointer;
+    color: #51294B;
+}
+

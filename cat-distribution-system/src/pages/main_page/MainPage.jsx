@@ -1,131 +1,31 @@
 import React from "react";
 import "./MainPage.css"
-
-const MainPage = ({ catEntities, setCatEntities }) => {
-    // const navigate = useNavigate();
-    //
-    // const [searchQuery, setSearchQuery] = useState("");
-    // const filteredCats = catEntities.filter(cat =>
-    //     cat.name?.toLowerCase().includes(searchQuery.trim().toLowerCase())
-    // );
-    //
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [catsPerPage, setCatsPerPage] = useState(10);
-    // const handlePageSizeChange = (newPageSize) => {
-    //     setCatsPerPage(newPageSize);
-    //     setCurrentPage(1);
-    // };
-    // const startIndex = (currentPage - 1) * catsPerPage;
-    //
-    // const totalPages = Math.ceil(filteredCats.length / catsPerPage);
-    // const handlePageChange = (newPage) => {
-    //     setCurrentPage(newPage);
-    // };
-    //
-    // const [selectedCat, setSelectedCat] = useState(null);
-    // const handleCatSelection = (cat) => {
-    //     if (selectedCat === cat) {
-    //         setCurrentSort("");
-    //         setSortText("Sort ⬆");
-    //         setAgeGroup("Show Kittens");
-    //
-    //         setCatEntities(prevCats => {
-    //             const updatedCats = [...prevCats];
-    //             navigate(`/${cat.name.toLowerCase()}`); // Navigate after updating
-    //             return updatedCats;
-    //         });
-    //     } else {
-    //         setSelectedCat(cat);
-    //     }
-    // };
-    //
-    // const handleDelete = () => {
-    //     if (!selectedCat) return;
-    //     setCatEntities(catEntities.filter(cat => cat !== selectedCat));
-    //     setSelectedCat(null);
-    //     setSearchQuery("");
-    // };
-    //
-    // const handleAdd = () => {
-    //     navigate("/add");
-    // };
-    //
-    // const handleUpdate = () => {
-    //     if (selectedCat) {
-    //         navigate(`/update/${selectedCat.name.toLowerCase()}`);
-    //     }
-    // };
-    //
-    // const originalOrderRef = React.useRef([...catEntities]);
-    // const [sortText, setSortText] = useState("Sort ⬆");
-    // const [currentSort, setCurrentSort] = useState("");
-    // const [preSortCats, setPreSortCats] = useState([]);
-    // const handleSort = () => {
-    //     if (currentSort === "") {
-    //         setCurrentSort("asc");
-    //         setPreSortCats([...catEntities]); // Save the current filtered list
-    //         const sortedCats = [...catEntities].sort((a, b) => a.name.localeCompare(b.name));
-    //         setCatEntities(sortedCats);
-    //         setSortText("Sort ⬇");
-    //     } else if (currentSort === "asc") {
-    //         setCurrentSort("desc");
-    //         const sortedCats = [...catEntities].sort((a, b) => b.name.localeCompare(a.name));
-    //         setCatEntities(sortedCats);
-    //         setSortText("Undo Sort");
-    //     } else {
-    //         setCurrentSort("");
-    //         setCatEntities([...preSortCats]); // Restore the last filtered list, not all cats
-    //         setSortText("Sort ⬆");
-    //     }
-    //
-    //     setSelectedCat(null);
-    // };
-    //
-    // const [ageGroup, setAgeGroup] = useState("Show Kittens");
-    // const handleAgeGroups = () => {
-    //     const allCats = [...originalOrderRef.current];
-    //
-    //     const kittens = allCats.filter(cat => cat.age >= 0 && cat.age <= 2);
-    //     const adultCats = allCats.filter(cat => cat.age >= 3 && cat.age <= 10);
-    //     const seniorCats = allCats.filter(cat => cat.age >= 11);
-    //
-    //     let newCatList;
-    //
-    //     if (ageGroup === "Show Kittens") {
-    //         setAgeGroup("Show Adult Cats");
-    //         newCatList = kittens;
-    //     } else if (ageGroup === "Show Adult Cats") {
-    //         setAgeGroup("Show Senior Cats");
-    //         newCatList = adultCats;
-    //     } else if (ageGroup === "Show Senior Cats") {
-    //         setAgeGroup("Show All");
-    //         newCatList = seniorCats;
-    //     } else {
-    //         setAgeGroup("Show Kittens");
-    //         newCatList = allCats;
-    //     }
-    //
-    //     setCatEntities(newCatList);
-    //     setPreSortCats(newCatList);
-    //     setCurrentSort("");
-    //     setSortText("Sort ⬆");
-    //     setSelectedCat(null);
-    // };
+import CatEntities from "../../assets/CatEntities";
+import CatCard from "../../components/cat_card/CatCard"
+import Pagination from "../../components/pagination/Pagination";
+import PageSizeDropdown from "../../components/pagination/PageSizeDropdown";
+import usePagination from "./usePagination";
 
 
+const MainPage = () => {
+    const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange } = usePagination(CatEntities, 9);
 
     return (
-        <div className="list-page-main">
+        <div className="main-page-main">
 
             <div className="all-rectangles-main navbar-main"/>
 
             <div className="all-rectangles-main title-banner-main">
-                <div className="icon-main"><img src="https://i.imgur.com/EBpUlkS.png" alt="CatIcon" /></div>
+                <div className="icon-main"><img src="https://i.imgur.com/EBpUlkS.png" style={{width: "100%"}} alt="CatIcon" /></div>
             </div>
 
             <div  className="all-rectangles-main image-banner-main">
                 <div>WHOA</div>
-                <img src="https://i.imgur.com/Yx7UrCS.png" style={{width: "50%", height: "85%"}} alt="CatBanner"></img>
+                <img src="https://i.imgur.com/Yx7UrCS.png" style={{width: "50%"}} alt="CatBanner"></img>
+            </div>
+
+            <div className="empty-area-main">
+                DEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEESCRIPTION
             </div>
 
             <div className="orange-border-container-main">
@@ -139,7 +39,29 @@ const MainPage = ({ catEntities, setCatEntities }) => {
             <div className="list-container-main">
                 <div className="all-rectangles-main buttons-list-main"></div>
 
-                <div className="all-rectangles-main cat-list-main"></div>
+                <div className="all-rectangles-main cat-list-main">
+                    {paginatedData.map((cat) => (
+                        <CatCard key={cat.id} cat={cat} />
+                    ))}
+                </div>
+            </div>
+
+            <div className="pagination-main">
+                <PageSizeDropdown pageSize={pageSize} setPageSize={handlePageSizeChange}></PageSizeDropdown>
+                <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages}></Pagination>
+            </div>
+
+            <div className="all-rectangles-main statistics-list-main"></div>
+
+            <div className="empty-area-main"></div>
+
+            <div className="orange-border-container-main">
+                <svg width="100%" height="100%" viewBox="0 0 1754 346" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_d_113_192)">
+                        <path fillRule="evenodd" clipRule="evenodd" d="M4 57.0649V58.5284V318C4 329.046 12.9543 338 24 338H604.79H1612.21H1730C1741.05 338 1750 329.046 1750 318V54.3975C1749.94 55.2812 1749.89 56.1705 1749.87 57.0649H1749.83C1749.04 26.2252 1723.27 1.46344 1691.6 1.46344C1659.93 1.46344 1634.16 26.2252 1633.36 57.0649H1633.33C1632.53 26.2252 1606.77 1.46344 1575.09 1.46344L1574.88 1.46381L1574.68 1.46344C1562.25 1.46344 1550.74 5.37082 1541.34 12.0144C1527.59 21.6079 1518.27 36.9071 1516.99 54.3855C1516.79 51.6678 1516.4 49.0028 1515.82 46.4038C1510.73 19.9829 1487.04 0 1458.59 0C1427.56 0 1402.2 23.7596 1400.43 53.7178C1397.94 24.453 1372.9 1.46344 1342.38 1.46344L1342.23 1.46362L1342.08 1.46344C1311.33 1.46344 1286.15 24.7962 1283.98 54.3718C1281.83 24.7962 1256.96 1.46344 1226.6 1.46344C1226.19 1.46344 1225.78 1.46768 1225.37 1.47607C1224.96 1.46768 1224.55 1.46344 1224.14 1.46344C1196.64 1.46344 1173.59 20.1295 1167.47 45.2332C1161.36 20.1295 1138.31 1.46344 1110.81 1.46344C1110.28 1.46344 1109.75 1.47043 1109.22 1.48428C1108.69 1.47043 1108.16 1.46344 1107.63 1.46344C1080.13 1.46344 1057.08 20.129 1050.97 45.2322C1044.85 20.129 1021.8 1.46344 994.302 1.46344C993.889 1.46344 993.476 1.46768 993.065 1.47607C992.658 1.46768 992.251 1.46344 991.842 1.46344C963.726 1.46344 940.321 21.4671 935.303 47.9083C930.831 20.7452 906.786 0 877.796 0C862.9 0 849.31 5.47675 839.01 14.4868C828.52 22.9638 821.111 34.9678 818.673 48.6458C813.895 21.8399 790.022 1.46344 761.29 1.46344C760.999 1.46344 760.709 1.46555 760.42 1.4697C760.13 1.46555 759.84 1.46344 759.549 1.46344C728.799 1.46344 703.614 24.803 701.447 54.3847C699.28 24.803 674.095 1.46344 643.346 1.46344L643.194 1.46362L643.043 1.46344C612.293 1.46344 587.108 24.8037 584.941 54.386C582.775 24.8037 557.589 1.46344 526.839 1.46344C495.166 1.46344 469.397 26.2252 468.605 57.0649H468.568C467.785 26.2252 442.334 1.46344 411.052 1.46344C379.771 1.46344 354.32 26.2252 353.537 57.0649H353.5C352.707 26.2252 326.938 1.46344 295.265 1.46344C263.593 1.46344 237.824 26.2252 237.031 57.0649H236.993C236.201 26.2252 210.432 1.46344 178.759 1.46344C147.086 1.46344 121.317 26.2252 120.525 57.0649H120.487C119.695 26.2252 93.9259 1.46344 62.2531 1.46344C30.5803 1.46344 4.81126 26.2252 4.01878 57.0649H4Z" fill="#51294B"/>
+                    </g>
+                </svg>
+
             </div>
         </div>
     )
