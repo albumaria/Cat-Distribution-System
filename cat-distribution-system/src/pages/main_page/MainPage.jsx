@@ -5,10 +5,15 @@ import CatCard from "../../components/cat_card/CatCard"
 import Pagination from "../../components/pagination/Pagination";
 import PageSizeDropdown from "../../components/pagination/PageSizeDropdown";
 import usePagination from "./usePagination";
-
+import ListButton from "../../components/buttons/ListButton";
+import {useNavigate} from "react-router-dom";
+import useSelectedCat from "./useSelectedCat";
+import FilterBar from "../../components/input_bars/FilterBar";
 
 const MainPage = () => {
     const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange } = usePagination(CatEntities, 9);
+    const { selectedCat, selectCat } = useSelectedCat();
+    const navigate = useNavigate();
 
     return (
         <div className="main-page-main">
@@ -36,12 +41,21 @@ const MainPage = () => {
                 </svg>
             </div>
 
+            <div className="filtering-main">
+                <div></div>
+                <FilterBar></FilterBar>
+            </div>
+
             <div className="list-container-main">
-                <div className="all-rectangles-main buttons-list-main"></div>
+                <div className="all-rectangles-main buttons-list-main">
+                    <ListButton content="Add" color="#F2B45A" onClick={() => navigate(`/add`)}></ListButton>
+                    <ListButton content="Delete" color="#F2B45A" disabled={!selectedCat}></ListButton>
+                    <ListButton content="Update" color="#F2B45A" disabled={!selectedCat}></ListButton>
+                </div>
 
                 <div className="all-rectangles-main cat-list-main">
                     {paginatedData.map((cat) => (
-                        <CatCard key={cat.id} cat={cat} />
+                        <CatCard key={cat.id} cat={cat} onClick={() => selectCat(cat)} isSelected={selectedCat && selectedCat.name === cat.name}/>
                     ))}
                 </div>
             </div>

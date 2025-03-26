@@ -4,6 +4,7 @@
 }
 
 .dropdown-select {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     font-size: 3vh;
     border-radius: 1.5vh;
     width: 4vw;

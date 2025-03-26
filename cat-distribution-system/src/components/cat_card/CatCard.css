@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+.cat-card.selected {
+    background-color: #FFDD4D;
+}
+
 .cat-image {
     width: 30vh;
     height: 30vh;

@@ -67,6 +67,17 @@
     width: 100%;
     height: 33vh;
     margin-bottom: 3vh;
+    background-color: skyblue;
+}
+
+.filtering-main {
+    width: 100%;
+    height: 8vh;
+    margin-bottom: 3vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .list-container-main {
@@ -81,6 +92,11 @@
 .buttons-list-main {
     background-color: #51294B;
     width: 20vw;
+    padding: 2vh;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2vh;
 }
 
 .cat-list-main {

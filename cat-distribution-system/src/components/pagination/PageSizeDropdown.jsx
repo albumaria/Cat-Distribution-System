@@ -10,7 +10,6 @@ const PageSizeDropdown = ({ pageSize, setPageSize }) => {
                 value={pageSize}
                 onChange={(e) => setPageSize(Number(e.target.value))}
             >
-                <option value={3}>3</option>
                 <option value={9}>9</option>
                 <option value={15}>15</option>
                 <option value={21}>21</option>
