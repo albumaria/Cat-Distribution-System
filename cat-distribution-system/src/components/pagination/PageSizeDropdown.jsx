@@ -3,10 +3,10 @@ import "./PageSizeDropdown.css";
 
 const PageSizeDropdown = ({ pageSize, setPageSize }) => {
     return (
-        <div className="container-dropdown">
+        <div className="container-page-dropdown">
             <select
                 id="pageSize"
-                className="dropdown-select"
+                className="page-select-dropdown"
                 value={pageSize}
                 onChange={(e) => setPageSize(Number(e.target.value))}
             >

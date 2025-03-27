@@ -1,0 +1,19 @@
+.file-button {
+    width: 30vw;
+    font-size: 3.5vh;
+    height: 6vh;
+    border: none;
+    position: relative;
+    outline: none;
+    background-image: url("https://i.imgur.com/hynrDOn.png");
+    border-radius: 2.5vh;
+    background-size: cover;
+    background-position: center;
+    color: #FFD5D2;
+    font-family: 'Rowdies', sans-serif;
+
+}
+
+.file-name {
+    color: #51294B;
+}

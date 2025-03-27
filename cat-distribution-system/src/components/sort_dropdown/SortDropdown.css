@@ -1,0 +1,10 @@
+.sort-select-dropdown {
+    background-color: #f4a2b8;
+    color: #51294B;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-size: 2.5vh;
+    border-radius: 1.5vh;
+    height: 6vh;
+    width: 10vw;
+    text-align: center;
+}

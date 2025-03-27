@@ -1,9 +1,9 @@
-.container-dropdown {
+.container-page-dropdown {
     display: flex;
     align-items: center;
 }
 
-.dropdown-select {
+.page-select-dropdown {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     font-size: 3vh;
     border-radius: 1.5vh;
@@ -12,5 +12,6 @@
     background-color: #fab3c5;
     cursor: pointer;
     color: #51294B;
+    text-align: center;
 }
 

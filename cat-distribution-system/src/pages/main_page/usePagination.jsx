@@ -1,8 +1,13 @@
-import { useState, useMemo } from "react";
+import {useState, useMemo, useEffect} from "react";
 
-const usePagination = (data, initialPageSize = 3) => {
+const usePagination = (data, initialPageSize = 9, resetTrigger) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(initialPageSize);
+
+    // Reset to first page when data changes or search term changes
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [resetTrigger, data]);
 
     const totalPages = Math.ceil(data.length / pageSize);
 
@@ -21,7 +26,14 @@ const usePagination = (data, initialPageSize = 3) => {
         setCurrentPage(1);
     };
 
-    return { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange };
+    return {
+        paginatedData,
+        currentPage,
+        pageSize,
+        totalPages,
+        handlePageChange,
+        handlePageSizeChange
+    };
 };
 
 export default usePagination;

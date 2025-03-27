@@ -1,11 +1,14 @@
 import React, {useState} from "react";
-import "./AddPage.css"
+import "./UpdatePage.css"
 import InputBar from "../../components/input_bars/InputBar";
 import InputFileButton from "../../components/buttons/InputFileButton";
 import Button from "../../components/buttons/Button";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
-const AddPage = ( { catEntities, addCat }) => {
+const UpdatePage = ( { catEntities, updateCat }) => {
+    const { catName } = useParams();
+    const cat = catEntities.find(cat => cat.name.toLowerCase() === catName.toLowerCase());
+
     const [name, setName] = useState("");
     const [gender, setGender] = useState("");
     const [age, setAge] = useState("");
@@ -60,7 +63,7 @@ const AddPage = ( { catEntities, addCat }) => {
 
         const newCat = {name: name.trim(), gender: gender.toUpperCase(), age: parseInt(age), weight: parseFloat(weight), description: description.trim(), image: imageUrl};
 
-        addCat(newCat);
+
         navigate('/');
     };
 
@@ -85,4 +88,4 @@ const AddPage = ( { catEntities, addCat }) => {
     );
 };
 
-export default AddPage;
+export default UpdatePage;

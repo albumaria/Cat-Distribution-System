@@ -1,11 +1,10 @@
 import React from "react";
 import "./DetailPage.css"
 import { useParams } from "react-router-dom";
-import CatEntities from "../../assets/CatEntities";
 
-const DetailPage = () => {
+const DetailPage = ({catEntities}) => {
     const { catName } = useParams();
-    const cat = CatEntities.find(cat => cat.name.toLowerCase() === catName.toLowerCase());
+    const cat = catEntities.find(cat => cat.name.toLowerCase() === catName.toLowerCase());
 
     return (
         <div className="wrapper-detail-page">

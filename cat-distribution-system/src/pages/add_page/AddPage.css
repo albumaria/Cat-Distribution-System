@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-left: 8%;
     margin-right: 8%;
     padding: 0;
@@ -25,9 +25,20 @@
     background-color: #f4a2b8;
     width: 100%;
     height: 80vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vh;
 }
 
 .all-rectangles-add-page {
     border-radius: 2vh;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.error-message-add-page {
+    color: #51294B;
+    font-size: 3vh;
 }

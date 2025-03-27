@@ -1,6 +1,5 @@
 import React from "react";
 import "./MainPage.css"
-import CatEntities from "../../assets/CatEntities";
 import CatCard from "../../components/cat_card/CatCard"
 import Pagination from "../../components/pagination/Pagination";
 import PageSizeDropdown from "../../components/pagination/PageSizeDropdown";
@@ -8,12 +7,17 @@ import usePagination from "./usePagination";
 import ListButton from "../../components/buttons/ListButton";
 import {useNavigate} from "react-router-dom";
 import useSelectedCat from "./useSelectedCat";
+import useFiltering from "./useFiltering";
 import FilterBar from "../../components/input_bars/FilterBar";
+import SortDropdown from "../../components/sort_dropdown/SortDropdown";
 
-const MainPage = () => {
-    const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange } = usePagination(CatEntities, 9);
+const MainPage = ( {catEntities, setSorting, sortConfig, deleteCat} ) => {
+
+    const { filteredEntities, setSearchTerm, searchTerm } = useFiltering(catEntities);
     const { selectedCat, selectCat } = useSelectedCat();
     const navigate = useNavigate();
+    const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange } = usePagination(filteredEntities, 9, searchTerm);
+
 
     return (
         <div className="main-page-main">
@@ -22,6 +26,7 @@ const MainPage = () => {
 
             <div className="all-rectangles-main title-banner-main">
                 <div className="icon-main"><img src="https://i.imgur.com/EBpUlkS.png" style={{width: "100%"}} alt="CatIcon" /></div>
+                <div style={{fontSize: "8vh", color: "#51294B"}}>Cat Distribution System</div>
             </div>
 
             <div  className="all-rectangles-main image-banner-main">
@@ -42,14 +47,14 @@ const MainPage = () => {
             </div>
 
             <div className="filtering-main">
-                <div></div>
-                <FilterBar></FilterBar>
+                <SortDropdown onSort={setSorting} currentSort={sortConfig}></SortDropdown>
+                <FilterBar onSearch={setSearchTerm}></FilterBar>
             </div>
 
             <div className="list-container-main">
                 <div className="all-rectangles-main buttons-list-main">
                     <ListButton content="Add" color="#F2B45A" onClick={() => navigate(`/add`)}></ListButton>
-                    <ListButton content="Delete" color="#F2B45A" disabled={!selectedCat}></ListButton>
+                    <ListButton content="Delete" color="#F2B45A" disabled={!selectedCat} onClick={() => deleteCat(selectedCat)}></ListButton>
                     <ListButton content="Update" color="#F2B45A" disabled={!selectedCat}></ListButton>
                 </div>
 
