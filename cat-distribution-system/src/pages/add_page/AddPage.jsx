@@ -68,7 +68,7 @@ const AddPage = ( { catEntities, addCat }) => {
 
     return (
         <div className="wrapper-add-page">
-            <div className="all-rectangles-add-page header-add-page">Add a new Cat!</div>
+            <div className="all-rectangles-add-page header-add-page">Add a new kitty</div>
 
             <div className="all-rectangles-add-page bottom-add-page">
                 {error && <div className="error-message-add-page">{error}</div>}

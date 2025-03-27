@@ -11,8 +11,7 @@ import useFiltering from "./useFiltering";
 import FilterBar from "../../components/input_bars/FilterBar";
 import SortDropdown from "../../components/sort_dropdown/SortDropdown";
 
-const MainPage = ( {catEntities, setSorting, sortConfig, deleteCat} ) => {
-
+const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat } ) => {
     const { filteredEntities, setSearchTerm, searchTerm } = useFiltering(catEntities);
     const { selectedCat, selectCat } = useSelectedCat();
     const navigate = useNavigate();
@@ -54,8 +53,8 @@ const MainPage = ( {catEntities, setSorting, sortConfig, deleteCat} ) => {
             <div className="list-container-main">
                 <div className="all-rectangles-main buttons-list-main">
                     <ListButton content="Add" color="#F2B45A" onClick={() => navigate(`/add`)}></ListButton>
-                    <ListButton content="Delete" color="#F2B45A" disabled={!selectedCat} onClick={() => deleteCat(selectedCat)}></ListButton>
-                    <ListButton content="Update" color="#F2B45A" disabled={!selectedCat}></ListButton>
+                    <ListButton content="Delete" color="#F2B45A" disabled={!selectedCat} onClick={() => { deleteCat(selectedCat); selectCat(null);}}></ListButton>
+                    <ListButton content="Update" color="#F2B45A" disabled={!selectedCat} onClick={() => { navigate(`/update/${selectedCat.name.toLowerCase()}`); selectCat(null)}}></ListButton>
                 </div>
 
                 <div className="all-rectangles-main cat-list-main">

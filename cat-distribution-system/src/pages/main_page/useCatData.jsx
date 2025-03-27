@@ -17,8 +17,20 @@ const useCatData = () => {
     };
 
     const addCat = (newCat) => {
-        setCatEntities(prevCats => [...prevCats, newCat]);
+        setCatEntities(prevCats => {
+            const lastId = prevCats.length > 0 ? prevCats[prevCats.length - 1].id : 0;
+            return [...prevCats, { ...newCat, id: lastId + 1 }];
+        });
     };
+
+    const updateCat = (oldCat, newCat) => {
+        setCatEntities(prevCats =>
+            prevCats.map(cat =>
+                cat.id === oldCat.id ? newCat : cat
+            )
+        );
+    };
+
 
     const sortedEntities = useMemo(() => {
         if (sortConfig.direction === 'none' || !sortConfig.key)
@@ -43,7 +55,8 @@ const useCatData = () => {
         setSorting,
         sortConfig,
         deleteCat,
-        addCat
+        addCat,
+        updateCat
     };
 };
 

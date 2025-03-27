@@ -9,12 +9,12 @@ const UpdatePage = ( { catEntities, updateCat }) => {
     const { catName } = useParams();
     const cat = catEntities.find(cat => cat.name.toLowerCase() === catName.toLowerCase());
 
-    const [name, setName] = useState("");
-    const [gender, setGender] = useState("");
-    const [age, setAge] = useState("");
-    const [weight, setWeight] = useState("");
-    const [description, setDescription] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
+    const [name, setName] = useState(cat ? cat.name : "");
+    const [gender, setGender] = useState(cat ? cat.gender : "");
+    const [age, setAge] = useState(cat ? cat.age : "");
+    const [weight, setWeight] = useState(cat ? cat.weight : "");
+    const [description, setDescription] = useState(cat ? cat.description : "");
+    const [imageUrl, setImageUrl] = useState(cat ? cat.image : "");
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
@@ -23,12 +23,7 @@ const UpdatePage = ( { catEntities, updateCat }) => {
         if (!name.trim()) {
             return "Name must be a non-empty string.";
         }
-        const isDuplicateName = catEntities.some(cat => cat.name.toLowerCase() === name.toLowerCase());
-        if (isDuplicateName) {
-            return "A cat with this name already exists.";
-        }
 
-        // Gender validation
         if (!['F', 'M'].includes(gender.toUpperCase())) {
             return "Gender must be 'F' or 'M'.";
         }
@@ -52,7 +47,7 @@ const UpdatePage = ( { catEntities, updateCat }) => {
         return null;
     };
 
-    const handleAddCat = () => {
+    const handleUpdateCat = () => {
         const validationError = validateInputs();
 
         if (validationError) {
@@ -61,19 +56,21 @@ const UpdatePage = ( { catEntities, updateCat }) => {
         }
         setError("");
 
-        const newCat = {name: name.trim(), gender: gender.toUpperCase(), age: parseInt(age), weight: parseFloat(weight), description: description.trim(), image: imageUrl};
-
+        const newCat = {id: cat.id, name: name.trim(), gender: gender.toUpperCase(), age: parseInt(age), weight: parseFloat(weight), description: description.trim(), image: imageUrl};
+        updateCat(cat, newCat);
 
         navigate('/');
     };
 
-
+    if (!cat) {
+        return <div>Cat not found</div>;
+    }
 
     return (
-        <div className="wrapper-add-page">
-            <div className="all-rectangles-add-page header-add-page">Add a new Cat!</div>
+        <div className="wrapper-update-page">
+            <div className="all-rectangles-update-page header-update-page">Update details for {cat.name}</div>
 
-            <div className="all-rectangles-add-page bottom-add-page">
+            <div className="all-rectangles-update-page bottom-update-page">
                 {error && <div className="error-message-add-page">{error}</div>}
                 <InputBar placeHolder="Name" value={name} onChange={(e) => setName(e.target.value)}></InputBar>
                 <InputBar placeHolder="Gender (F/M)" value={gender} onChange={(e) => setGender(e.target.value)}></InputBar>
@@ -82,7 +79,7 @@ const UpdatePage = ( { catEntities, updateCat }) => {
                 <InputBar placeHolder="Description" value={description} onChange={(e) => setDescription(e.target.value)}></InputBar>
                 <InputFileButton onFileSelect={(url) => setImageUrl(url)}></InputFileButton>
 
-                <Button content="Add Cat" color="#51294B" width="30vw" onClick={handleAddCat}></Button>
+                <Button content="Update Cat" color="#51294B" width="30vw" onClick={handleUpdateCat}></Button>
             </div>
         </div>
     );

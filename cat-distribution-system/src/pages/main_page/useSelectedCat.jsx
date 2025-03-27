@@ -7,6 +7,8 @@ const useSelectedCat = () => {
         setSelectedCat(cat);
     };
 
+
+
     return {
         selectedCat,
         selectCat,
