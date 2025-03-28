@@ -25,24 +25,36 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat } ) 
     return (
         <div className="main-page-main">
 
-            <div className="all-rectangles-main navbar-main"/>
+            <div className="all-rectangles-main navbar-main">
+                <a href="https://github.com/albumaria/Cat-Distribution-System/tree/main">
+                    <div className="navbar-project-link-main">Purroject link 🩷</div>
+                </a>
+                <div style={{width: "2vw", marginLeft: "0.5vw"}}><img src="https://i.imgur.com/DXtd1ZV.png" alt="github-icon"/></div>
+            </div>
 
             <div className="all-rectangles-main title-banner-main">
                 <div className="icon-main"><img src="https://i.imgur.com/EBpUlkS.png" style={{width: "100%"}} alt="CatIcon" /></div>
                 <div style={{fontSize: "8vh", color: "#51294B"}}>Cat Distribution System</div>
             </div>
 
-            <div  className="all-rectangles-main image-banner-main">
-                <div>WHOA</div>
-                <img src="https://i.imgur.com/Yx7UrCS.png" style={{width: "50%"}} alt="CatBanner"></img>
+            <div className="all-rectangles-main image-banner-main">
+                <div className="image-banner-text-main">
+                    <div style={{fontSize: "8vh", marginBottom: "5vh"}}>Find Your Perfect Cat Today!</div>
+                    <div style={{fontSize: "3vh", color: "#f4a2b8"}}>Our mission? To match you with your purr-fect furry soulmate! ⋆˚🐈˖°</div>
+                </div>
+                <img src="https://i.imgur.com/KPAHHrY.png" style={{width: "50%"}} alt="CatBanner"></img>
             </div>
 
             <div className="empty-area-main">
-                DEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEESCRIPTION
+                <div style={{fontSize: "7vh"}}>How do we reach our objective?</div>
+                <div style={{fontSize: "3vh", color: "#f38fa6"}}>
+                    Our expert assistants and tailored questionnaire make finding your ideal feline companion effortless. But it’s not just about you—we’re also dedicated to helping each cat find their purr-fect human match.</div>
+                <div style={{fontSize: "4vh", color: "#51294B", marginLeft: "8vw", marginRight: "8vw"}}>
+                    Because every kitty deserves a loving home, and every home deserves the right kitty! 😺</div>
             </div>
 
             <div className="orange-border-container-main">
-                <img src="https://i.imgur.com/xt4UO7k.png" alt="orange-border-main"></img>
+                <div className="orange-border-quiz-button-main">Take the Quiz Now! ⋆˚🐾˖°</div>
             </div>
 
             <div className="filtering-main">
@@ -80,7 +92,7 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat } ) 
 
             <div className="empty-area-main"></div>
 
-            <div className="orange-border-container-main">
+            <div className="purple-border-container-main">
                 <img src="https://i.imgur.com/j8NIdHK.png" alt="purple-border-main"></img>
             </div>
         </div>
