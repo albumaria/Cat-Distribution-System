@@ -1,14 +1,16 @@
 # Cat-Distribution-System 🐈
 
+Cat Adoptions Web Application
+
 Last Readme update: 28/03/2025
 
 https://github.com/user-attachments/assets/e7344287-f57c-477f-89af-7befef80726c
 
 
-### Web application made using react
+### Web Application made using React
 
-The app currently supports CRUD operations - add, deleting and updating a cat entity.
-Other functionalities:
+Current functionalities:
+- CRUD operations - add, deleting and updating a cat entity
 - Sorting by name or age
 - Filtering by name
 - Showing cats by age groups (kittens/adult cats/senior cats)
