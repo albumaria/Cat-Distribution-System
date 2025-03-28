@@ -1,6 +1,6 @@
 # Cat-Distribution-System 🐈
 
-Cat Adoptions Web Application
+**Cat Adoptions Web Application**
 
 Last Readme update: 28/03/2025
 
