@@ -1,5 +1,6 @@
 import {useMemo, useState} from 'react';
-import CatEntities from '../../assets/CatEntities';
+import { v4 as uuidv4 } from 'uuid';
+import CatEntities from '../../../assets/CatEntities';
 
 const useCatData = () => {
     const [catEntities, setCatEntities] = useState(CatEntities);
@@ -18,8 +19,8 @@ const useCatData = () => {
 
     const addCat = (newCat) => {
         setCatEntities(prevCats => {
-            const lastId = prevCats.length > 0 ? prevCats[prevCats.length - 1].id : 0;
-            return [...prevCats, { ...newCat, id: lastId + 1 }];
+            const newCatWithId = { ...newCat, id: uuidv4() };
+            return [...prevCats, newCatWithId];
         });
     };
 
