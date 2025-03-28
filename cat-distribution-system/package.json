@@ -6,7 +6,6 @@
     "@faker-js/faker": "^9.6.0",
     "@tailwindcss/vite": "^4.0.15",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^19.0.0",
@@ -21,7 +20,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,5 +41,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@vitest/coverage-v8": "^3.0.9",
+    "@vitest/ui": "^3.0.9",
+    "jsdom": "^24.0.0",
+    "vitest": "^3.0.9"
   }
 }
