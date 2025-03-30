@@ -1,0 +1,210 @@
+[
+  {
+    "name": "Kiryu",
+    "gender": "M",
+    "age": 2,
+    "weight": 2.3,
+    "description": "Kiryu is an active cat who's always willing to seek justice and do what's right. You can always count on him to protect you.",
+    "image": "https://i.pinimg.com/736x/b3/dd/92/b3dd92d6db84a0d98a86d797f27c1eea.jpg"
+  },
+  {
+    "name": "Cola",
+    "gender": "F",
+    "age": 13,
+    "weight": 1.4,
+    "description": "Cola is an elderly cat who is quite small and sweet. She's just the right companion for a lazy day in.",
+    "image": "https://i.imgur.com/mmqATRs.png"
+  },
+  {
+    "name": "Mimir",
+    "gender": "F",
+    "age": 3,
+    "weight": 3.4,
+    "description": "Mimir is a silly and goofy cat who's sure to make you laugh. Despite her size, she's a pack full of joy.",
+    "image": "https://i.imgur.com/ZacfCnv.png"
+  },
+  {
+    "name": "Domingo",
+    "gender": "M",
+    "age": 5,
+    "weight": 4.1,
+    "description": "Domingo is a lovely cat who's very vocal and gets easily attached to people. He loves attention and will do anything to be by your side.",
+    "image": "https://i.pinimg.com/736x/fe/0c/23/fe0c235ba2a88a0b07f9cd5156347d0b.jpg"
+  },
+  {
+    "name": "Plug",
+    "gender": "M",
+    "age": 2,
+    "weight": 2.9,
+    "description": "Plug is a very curious cat who will watch you do anything around the house with the high most interest. Despite him having no ears, he'll listen to what's in your heart and he's very sensitive",
+    "image": "https://i.pinimg.com/736x/7e/bd/8b/7ebd8bd7610cbf760c1e9630e2d1f643.jpg"
+  },
+  {
+    "name": "Luna",
+    "gender": "F",
+    "age": 1,
+    "weight": 0.9,
+    "description": "Luna is a cute and soft cat who likes to sleep and cuddle. Be careful! She might take over the world!",
+    "image": "https://i.imgur.com/43IHICA.png"
+  },
+  {
+    "name": "Pufoasa",
+    "gender": "F",
+    "age": 6,
+    "weight": 2.1,
+    "description": "Pufoasa is a scaredy-cat that's very vocal and soft. She is deaf, but that just makes her full of love to give.",
+    "image": "https://i.imgur.com/OE8klZ3.png"
+  },
+  {
+    "name": "Estus",
+    "gender": "M",
+    "age": 8,
+    "weight": 3.4,
+    "description": "Estus is a cool kitty who loves to be held and pet. He might seem a bit aloof, but inside he holds a deep love for his people.",
+    "image": "https://i.imgur.com/UA8pldn.png"
+  },
+  {
+    "name": "Boris",
+    "gender": "M",
+    "age": 11,
+    "weight": 7.8,
+    "description": "Boris is a big, laid-back cat who likes to laze around. He has some breathing issues due to his flat face.",
+    "image": "https://i.imgur.com/F3jWM47.png"
+  },
+  {
+    "name": "Kiwi",
+    "gender": "F",
+    "age": 7,
+    "weight": 6.5,
+    "description": "Kiwi is a crazy cat who loves to meow and is very food-driven. However, she is very fond of her human friends and love to cuddle up to them.",
+    "image": "https://i.imgur.com/OGuL9T4.png"
+  },
+  {
+    "name": "Mimi",
+    "gender": "F",
+    "age": 4,
+    "weight": 2.4,
+    "description": "Mimi is a princess-like kitty who is very demure and very beautiful. She loves to play with toy mice.",
+    "image": "https://i.imgur.com/mfeGQyI.jpeg"
+  },
+  {
+    "name": "Coots",
+    "gender": "F",
+    "age": 1,
+    "weight": 1.2,
+    "description": "Coots is a goofy little guy with huge eyes. She's very lovable and likes to run around the house, climbing on furniture.",
+    "image": "https://pbs.twimg.com/media/FVcjsz-WAAA7vkK.jpg"
+  },
+  {
+    "name": "Prosciutto",
+    "gender": "F",
+    "age": 1,
+    "weight": 1.1,
+    "description": "Prosciutto is a young and soft kitty who's very playful and loves to hide around the house. She's a bundle of joy.",
+    "image": "https://i.pinimg.com/736x/16/d8/41/16d8419a648df72d55ade0109cd1fb57.jpg"
+  },
+  {
+    "name": "Sisi",
+    "gender": "F",
+    "age": 6,
+    "weight": 4.6,
+    "description": "Sisi can be a bit of a cat with an attitude. Sassy, if you will. But she always makes sure to be around her human companions",
+    "image": "https://i.pinimg.com/736x/55/1d/2e/551d2ed72f147ab03771ea7847adf1a0.jpg"
+  },
+  {
+    "name": "Cindy",
+    "gender": "F",
+    "age": 6,
+    "weight": 3.7,
+    "description": "Cindy is a very beautiful and social cat. She always loves to play with the other cats and loves to groom herself thoroughly, so she is very clean. She also loves fashion.",
+    "image": "https://i.pinimg.com/736x/f3/33/bb/f333bb3168cea81b276512f242247d44.jpg"
+  },
+  {
+    "name": "Gosig",
+    "gender": "M",
+    "age": 5,
+    "weight": 2.2,
+    "description": "Gosig loves his rat toy and you can never really see him without it. He's very affectionate and loves cuddles.",
+    "image": "https://i.imgur.com/eIT9ncI.png"
+  },
+  {
+    "name": "Diesel",
+    "gender": "M",
+    "age": 4,
+    "weight": 5.6,
+    "description": "Diesel may look tough, but deep inside, he has a soft spot for pets and fish-flavoured wet food.",
+    "image": "https://i.imgur.com/kzDIyko.png"
+  },
+  {
+    "name": "Pisa",
+    "gender": "F",
+    "age": 7,
+    "weight": 3.2,
+    "description": "Pisa is a pretty scaredy cat, but she has proved herself to be a great hunter. She always brings back mice. She might be great for your farm.",
+    "image": "https://i.imgur.com/YQ6EqDk.png"
+  },
+  {
+    "name": "Mangalia",
+    "gender": "F",
+    "age": 1,
+    "weight": 1.0,
+    "description": "Mangalia is a cat who grew up around the beach. She loves lounging in the sun and talking with her brothers and sisters.",
+    "image": "https://i.imgur.com/FRKIn6p.png"
+  },
+  {
+    "name": "Suceava",
+    "gender": "F",
+    "age": 3,
+    "weight": 5.4,
+    "description": "Suceava is a kitty who loves attention! If you psps'd her, you can bet that she'll be by your side in 1 second flat.",
+    "image": "https://i.imgur.com/DsHG0IL.png"
+  },
+  {
+    "name": "Micuta",
+    "gender": "F",
+    "age": 1,
+    "weight": 1.2,
+    "description": "Micuta is a silly cat who is very tiny. She tends to be very scared of strangers, but loves her family's attention.",
+    "image": "https://i.imgur.com/Uv3QH7w.png"
+  },
+  {
+    "name": "Piti",
+    "gender": "M",
+    "age": 1,
+    "weight": 1.1,
+    "description": "Piti is the definition of a purrfect lap cat. He can be your lovely office companion, and he also really loves sitting on laptops, which may cause some havoc.",
+    "image": "https://i.imgur.com/o6YnEoK.png"
+  },
+  {
+    "name": "Bubico",
+    "gender": "M",
+    "age": 13,
+    "weight": 3.7,
+    "description": "Bubico is a hungry cat who is always vocal about getting more and more food. After being fed, however, he loves to be pet and will cuddle you to the ends of the Earth.",
+    "image": "https://i.imgur.com/sERXVBI.png"
+  },
+  {
+    "name": "Fernando",
+    "gender": "M",
+    "age": 20,
+    "weight": 5.1,
+    "description": "Fernando is a power-hungry cat who might have had some dealings in the past with the Japanese yakuza. We don't recommend Fernando unless you're ready for that kind of lifestyle.",
+    "image": "https://i.imgur.com/X1qL2Nm.png"
+  },
+  {
+    "name": "Piticlic",
+    "gender": "M",
+    "age": 0,
+    "weight": 0.4,
+    "description": "Piticlic is a very tiny kitten who likes to be held and bottle-fed.",
+    "image": "https://i.imgur.com/CEtIOb7.png"
+  },
+  {
+    "name": "Remi",
+    "gender": "F",
+    "age": 1,
+    "weight": 1.2,
+    "description": "Remi is a silly little cat who has BIG curious eyes and BIG curious ears. She's sure to cause mischief!",
+    "image": "https://i.imgur.com/8gZ6FTm.png"
+  }
+]

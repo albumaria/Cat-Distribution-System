@@ -1,13 +1,8 @@
 import {useState, useMemo} from "react";
 
-const usePagination = (data, initialPageSize = 9, resetTrigger) => {
+const usePagination = (data, initialPageSize = 9) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(initialPageSize);
-
-    // // page reset if data changes
-    // useEffect(() => {
-    //     setCurrentPage(1);
-    // }, [resetTrigger, data]);
 
     const totalPages = Math.ceil(data.length / pageSize);
 

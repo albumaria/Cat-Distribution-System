@@ -58,7 +58,7 @@ const AddPage = ( { catEntities, addCat }) => {
         }
         setError("");
 
-        const newCat = {name: name.trim(), gender: gender.toUpperCase(), age: parseInt(age), weight: parseFloat(weight), description: description.trim(), image: imageUrl};
+        const newCat = {id: null, name: name.trim(), gender: gender.toUpperCase(), age: parseInt(age), weight: parseFloat(weight), description: description.trim(), image: imageUrl};
 
         addCat(newCat);
         navigate('/');
