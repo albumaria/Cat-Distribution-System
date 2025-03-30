@@ -7,21 +7,24 @@ import usePagination from "./functionalities/usePagination";
 import ListButton from "../../components/buttons/ListButton";
 import {useNavigate} from "react-router-dom";
 import useSelectedCat from "./functionalities/useSelectedCat";
+import useFiltering from "./functionalities/useFiltering";
 import FilterBar from "../../components/input_bars/FilterBar";
 import SortDropdown from "../../components/sort_dropdown/SortDropdown";
 import Statistics from "../../components/statistics/Statistics";
 import useGenerateCats from "./functionalities/useGenerateCats";
 
-const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, setSearchTerm, filterByAge } ) => {
+const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat } ) => {
+    const { filteredEntities, setSearchTerm, searchTerm, filterByAge } = useFiltering(catEntities);
     const { selectedCat, selectCat } = useSelectedCat();
     const navigate = useNavigate();
-    const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange } = usePagination(catEntities, 9);
+    const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange } = usePagination(filteredEntities, 9, searchTerm);
     const [isGenerating, setIsGenerating] = useState(false);
 
     useGenerateCats(isGenerating, addCat);
 
     return (
         <div className="main-page-main">
+
             <div className="all-rectangles-main navbar-main">
                 <a href="https://github.com/albumaria/Cat-Distribution-System/tree/main">
                     <div className="navbar-project-link-main">Purroject link 🩷</div>
@@ -73,7 +76,7 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
 
                 <div className="all-rectangles-main cat-list-main">
                     {paginatedData.map((cat) => (
-                        <CatCard key={cat.id} cat={cat} onClick={() => selectCat(cat)} isSelected={selectedCat && selectedCat.id === cat.id}/>
+                        <CatCard key={cat.id} cat={cat} onClick={() => selectCat(cat)} isSelected={selectedCat && selectedCat.name === cat.name}/>
                     ))}
                 </div>
             </div>
