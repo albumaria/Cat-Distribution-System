@@ -64,7 +64,7 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
                     <ListButton content="Add" color="#F2B45A" onClick={() => navigate(`/add`)}></ListButton>
                     <ListButton content="Delete" color="#F2B45A" disabled={!selectedCat} onClick={() => { deleteCat(selectedCat); selectCat(null);}}></ListButton>
                     <ListButton content="Update" color="#F2B45A" disabled={!selectedCat} onClick={() => { navigate(`/update/${selectedCat.name.toLowerCase()}`); selectCat(null)}}></ListButton>
-                    <ListButton content="Show All Cats" color="#FFD5D2"  onClick={() => filterByAge(null, null)}></ListButton>
+                    <ListButton content="Show All Cats" color="#FFD5D2"  onClick={() => filterByAge(-1, 35)}></ListButton>
                     <ListButton content="Show Kittens" color="#FFD5D2" onClick={() => filterByAge(0, 2)}></ListButton>
                     <ListButton content="Show Adult Cats" color="#FFD5D2" onClick={() => filterByAge(3, 10)}></ListButton>
                     <ListButton content="Show Senior Cats" color="#FFD5D2" onClick={() => filterByAge(11, 35)}></ListButton>
