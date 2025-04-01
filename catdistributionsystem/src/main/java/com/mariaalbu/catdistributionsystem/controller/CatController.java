@@ -29,9 +29,14 @@ public class CatController {
 
     @PostMapping
     public void addCat(@RequestBody Cat cat) {
-        UUID newId = UUID.randomUUID();
-        cat.setId(newId);
-        catService.addCat(cat);
+        try {
+            UUID newId = UUID.randomUUID();
+            cat.setId(newId);
+            catService.addCat(cat);
+        }
+        catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -41,7 +46,12 @@ public class CatController {
 
     @PatchMapping("/{id}")
     public void updateCat(@PathVariable UUID id, @RequestBody Cat updatedCat) {
-        catService.updateCat(id, updatedCat);
+        try {
+            catService.updateCat(id, updatedCat);
+        }
+        catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @GetMapping("/filter-sort")

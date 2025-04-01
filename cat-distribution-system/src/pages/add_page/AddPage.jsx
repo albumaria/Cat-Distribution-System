@@ -25,7 +25,6 @@ const AddPage = ( { catEntities, addCat }) => {
             return "A cat with this name already exists.";
         }
 
-        // Gender validation
         if (!['F', 'M'].includes(gender.toUpperCase())) {
             return "Gender must be 'F' or 'M'.";
         }
