@@ -65,9 +65,9 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
                     <ListButton content="Delete" color="#F2B45A" disabled={!selectedCat} onClick={() => { deleteCat(selectedCat); selectCat(null);}}></ListButton>
                     <ListButton content="Update" color="#F2B45A" disabled={!selectedCat} onClick={() => { navigate(`/update/${selectedCat.name.toLowerCase()}`); selectCat(null)}}></ListButton>
                     <ListButton content="Show All Cats" color="#FFD5D2"  onClick={() => filterByAge(-1, 35)}></ListButton>
-                    <ListButton content="Show Kittens" color="#FFD5D2" onClick={() => filterByAge(0, 2)}></ListButton>
-                    <ListButton content="Show Adult Cats" color="#FFD5D2" onClick={() => filterByAge(3, 10)}></ListButton>
-                    <ListButton content="Show Senior Cats" color="#FFD5D2" onClick={() => filterByAge(11, 35)}></ListButton>
+                    <ListButton content={<> Show Kittens <span style={{ color: "#ff95b1" }}> ✿</span> </>} color="#FFD5D2" onClick={() => filterByAge(0, 2)}></ListButton>
+                    <ListButton content={<> Show Adult Cats <span style={{ color: "#51294BFF" }}> ✿</span> </>} color="#FFD5D2" onClick={() => filterByAge(3, 10)}></ListButton>
+                    <ListButton content={<> Show Senior Cats <span style={{ color: "#ffab25" }}> ✿</span> </>} color="#FFD5D2" onClick={() => filterByAge(11, 35)}></ListButton>
                     <ListButton content={isGenerating ? "Stop Generating" : "Start Generating"} color="#FFDD4D" onClick={() => setIsGenerating(!isGenerating)}></ListButton>
                 </div>
 
