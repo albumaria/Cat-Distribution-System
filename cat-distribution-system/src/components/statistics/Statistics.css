@@ -3,52 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
-
-}
-
-.statistics-title {
-    text-align: center;
-    color: #51294B;
-    font-size: 5vh;
-}
-
-.statistics-graph {
-    background: #F2B45A;
-    border-left: 3px solid;
-    border-bottom: 3px solid;
-    position: relative;
-    display: flex;
-    width: 50vw;
-    justify-content: space-around;
-    height: 50vh;
-}
-
-.statistics-box {
-    position: relative;
-    width: 5rem;
-    height: 100%;
-}
-
-.statistics-bar {
-    width: 100%;
-    height: var(--size);
-    position: absolute;
-    bottom: 0;
-    background-image: linear-gradient(#51294B, var(--color))
-}
-
-.statistics-skill {
-    position: absolute;
-    bottom: -27px;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-}
-
-.statistics-number {
-    position: absolute;
-    top: -27px;
-    left: 50%;
-    transform: translateX(-50%);
+    height: 60vh;
+    width: 80vw;
+    background-color: #FFF1DE;
+    border-radius: 2vh;
 }
