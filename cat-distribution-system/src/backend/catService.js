@@ -61,7 +61,7 @@ export const deleteCat = async (id) => {
 
 export const updateCat = async (id, catData) => {
     try {
-        const response = await axios.put(`${API_URL}/${id}`, catData);
+        const response = await axios.patch(`${API_URL}/${id}`, catData);
         return response.data;
     } catch (error) {
         console.error("Error updating cat:", error);

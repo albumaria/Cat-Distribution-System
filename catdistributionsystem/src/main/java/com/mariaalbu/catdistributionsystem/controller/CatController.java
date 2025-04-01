@@ -39,7 +39,7 @@ public class CatController {
         catService.deleteCat(id);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public void updateCat(@PathVariable UUID id, @RequestBody Cat updatedCat) {
         catService.updateCat(id, updatedCat);
     }
