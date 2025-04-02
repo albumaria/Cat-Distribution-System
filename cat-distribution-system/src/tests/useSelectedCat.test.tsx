@@ -38,14 +38,12 @@ describe('useSelectedCat hook', () => {
             description: 'A calm cat'
         };
 
-        // First selection
         act(() => {
             result.current.selectCat(mockCat);
         });
 
         expect(result.current.selectedCat).toEqual(mockCat);
 
-        // Second selection
         act(() => {
             result.current.selectCat(anotherCat);
         });
@@ -56,14 +54,12 @@ describe('useSelectedCat hook', () => {
     it('can deselect a cat by passing null', () => {
         const { result } = renderHook(() => useSelectedCat());
 
-        // Select a cat
         act(() => {
             result.current.selectCat(mockCat);
         });
 
         expect(result.current.selectedCat).toEqual(mockCat);
 
-        // Deselect
         act(() => {
             result.current.selectCat(null);
         });

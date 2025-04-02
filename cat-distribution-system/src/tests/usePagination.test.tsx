@@ -37,7 +37,6 @@ describe('usePagination hook', () => {
     it('changes page correctly', () => {
         const { result } = renderHook(() => usePagination(mockData));
 
-        // Move to second page
         act(() => {
             result.current.handlePageChange(2);
         });
