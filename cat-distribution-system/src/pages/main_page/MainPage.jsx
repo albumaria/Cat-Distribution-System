@@ -12,7 +12,7 @@ import SortDropdown from "../../components/sort_dropdown/SortDropdown";
 import Statistics from "../../components/statistics/Statistics";
 import useGenerateCats from "./functionalities/useGenerateCats";
 
-const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, setSearchTerm, filterByAge } ) => {
+const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, setSearchTerm, filterByAge, isOnline, isServerOnline } ) => {
     const { selectedCat, selectCat } = useSelectedCat();
     const navigate = useNavigate();
     const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange } = usePagination(catEntities, 9);
@@ -56,6 +56,10 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
 
             <div className="filtering-main">
                 <SortDropdown onSort={setSorting} currentSort={sortConfig}></SortDropdown>
+                <div className="server-status-main">
+                    <div>Server:<>{!isServerOnline ? '🔴' : '🟢'}</></div>
+                    <div>Network:<>{!isOnline ? '🔴' : '🟢'}</></div>
+                </div>
                 <FilterBar onSearch={setSearchTerm}></FilterBar>
             </div>
 
