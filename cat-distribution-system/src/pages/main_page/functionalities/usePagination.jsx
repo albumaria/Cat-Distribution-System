@@ -4,84 +4,81 @@ const usePagination = (data, initialPageSize = 9) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(initialPageSize);
     const [isInfiniteScroll, setIsInfiniteScroll] = useState(false);
-    const [displayedItems, setDisplayedItems] = useState([]);
     const [loadedCount, setLoadedCount] = useState(0);
 
-    // reset pagination when data source changes (infinite scroll or simple pagination)
-    // useEffect(() => {
-    //     if (isInfiniteScroll) {
-    //         //set the displayed items
-    //         setDisplayedItems(data.slice(0, loadedCount));
-    //     } else {
-    //         // normal pagination: make sure the current page is valid
-    //         if (currentPage > Math.ceil(data.length / pageSize) && data.length > 0) {
-    //             setCurrentPage(1);
-    //         }
-    //     }
-    // }, [data, isInfiniteScroll, loadedCount, currentPage, pageSize]);
-    // Thought this was necessary
+    // used to see if the data source has changed or not
+    const [dataSourceId, setDataSourceId] = useState(Date.now());
 
-    // when switching to infinite scroll, set the loaded count and displayed items
+
+    // when data length changes, check if the data source changed
+    useEffect(() => {
+        if (data && data.length > 0) {
+            const newDataSourceId = Date.now();
+            if (Math.abs(data.length - loadedCount) > 9) {
+                setDataSourceId(newDataSourceId);
+                if (isInfiniteScroll) {
+                    setLoadedCount(initialPageSize);
+                }
+            }
+        }
+    }, [data.length]);
+
+
+    // when switching between modes or when data source changes reset items
     useEffect(() => {
         if (isInfiniteScroll) {
             setLoadedCount(initialPageSize);
-            setDisplayedItems(data.slice(0, initialPageSize));
+        } else {
+            const maxPage = Math.max(1, Math.ceil(data.length / pageSize));
+            if (currentPage > maxPage && data.length > 0) {
+                setCurrentPage(1);
+            }
         }
-    }, [isInfiniteScroll, data, initialPageSize]);
+    }, [isInfiniteScroll, dataSourceId]);
 
-    const totalPages = Math.ceil(data.length / pageSize);
 
-    // the paginated data is the displayed items for infinite scroll or just a portion of the data for normal pagination
+    const totalPages = Math.max(1, Math.ceil(data.length / pageSize));
+
+    // calculate which data is shown based on the mode
     const paginatedData = useMemo(() => {
         if (isInfiniteScroll) {
-            return displayedItems;
+            return data.slice(0, loadedCount);
         }
-
         return data.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-    }, [data, currentPage, pageSize, isInfiniteScroll, displayedItems]);
+    }, [data, currentPage, pageSize, isInfiniteScroll, loadedCount]);
 
-    // set current page to the new page when pressing next
+
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {
             setCurrentPage(newPage);
         }
     };
 
-    // if the page size changes, initialize stuff for the infinite scroll or for normal pagination
     const handlePageSizeChange = (newSize) => {
         if (newSize === "infinite") {
             setIsInfiniteScroll(true);
             setLoadedCount(initialPageSize);
-            setDisplayedItems(data.slice(0, initialPageSize));
-        }
-        else {
+        } else {
             setIsInfiniteScroll(false);
-            setPageSize(newSize);
+            setPageSize(Number(newSize));
             setCurrentPage(1);
         }
     };
 
-    // for infinite scroll, load items 9 at a time, set the new loaded count and set the displayed items and the loaded count
+    // increment the loadCount by 9 for each scroll down, triggered when the div at the end is in view
     const loadMoreItems = () => {
         if (!isInfiniteScroll || loadedCount >= data.length) {
             return false;
         }
 
         const newLoadedCount = Math.min(loadedCount + 9, data.length);
-
         if (newLoadedCount > loadedCount) {
-            const nextItems = data.slice(loadedCount, newLoadedCount);
-
-            setDisplayedItems(prevItems => {
-                const existingIds = new Set(prevItems.map(item => item.id));
-                const uniqueNextItems = nextItems.filter(item => !existingIds.has(item.id));
-                return [...prevItems, ...uniqueNextItems];
-            });
             setLoadedCount(newLoadedCount);
             return true;
         }
         return false;
-    }
+    };
+
 
     return {
         paginatedData,

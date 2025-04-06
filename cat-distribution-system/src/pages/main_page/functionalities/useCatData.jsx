@@ -2,6 +2,7 @@ import {useCallback, useEffect, useState} from 'react';
 import { fetchCatsBackend, checkBackendStatus, addCatBackend, deleteCatBackend, updateCatBackend } from "../../../backend/backendCatManagement";
 import { fetchCatsFrontend, addCatFrontend, deleteCatFrontend, updateCatFrontend } from "../../../frontend/frontendCatManagement";
 import CatEntities from "../../../assets/CatEntities";
+import useWebSocket from "./useWebSocket";
 
 const useCatData = () => {
     const [isOnline, setOnlineStatus] = useState(navigator.onLine);
@@ -15,6 +16,15 @@ const useCatData = () => {
     const [sortConfig, setSortConfig] = useState({key: "none", direction: 'ascending'});
 
     const [operationQueue, setOperationQueue] = useState([]);
+
+    const {
+        connected: wsConnected,
+        subscribe,
+        unsubscribe,
+        isGenerating,
+        startGenerator,
+        stopGenerator
+    } = useWebSocket('http://localhost:8080/ws-cats')
 
     useEffect(() => {
         const handleOnline = () => setOnlineStatus(true);
@@ -37,6 +47,28 @@ const useCatData = () => {
 
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        if (wsConnected && isServerOnline) {
+            // Subscribe to new cat notifications
+            subscribe('/topic/cats', (newCat) => {
+                console.log('New cat received via WebSocket:', newCat);
+            });
+
+            subscribe('/topic/cats-list', (updatedCats) => {
+                console.log('Updated cat list received via WebSocket:', updatedCats);
+                setCatEntities(updatedCats);
+                setLocalCats(updatedCats);
+            });
+        }
+
+        return () => {
+            if (wsConnected) {
+                unsubscribe('/topic/cats');
+                unsubscribe('/topic/cats-list');
+            }
+        };
+    }, [wsConnected, isServerOnline, subscribe, unsubscribe]);
 
     const loadCats = useCallback(async () => {
         try {
@@ -173,7 +205,10 @@ const useCatData = () => {
         setNameFilter,
         filterByAge,
         isOnline,
-        isServerOnline
+        isServerOnline,
+        isGenerating,
+        startGenerator,
+        stopGenerator
     };
 };
 

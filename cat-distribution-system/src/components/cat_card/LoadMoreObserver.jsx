@@ -14,6 +14,7 @@ const LoadMoreObserver = ({onIntersect, isLoading, hasMore }) => {
                     onIntersect();
                 }
             },
+            {threshold: 0.01} // so that the loading starts as soon as just 0.01 part of the element is seen
         );
 
         // start observing the element

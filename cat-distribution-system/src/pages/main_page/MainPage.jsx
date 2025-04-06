@@ -13,24 +13,38 @@ import SortDropdown from "../../components/sort_dropdown/SortDropdown";
 import Statistics from "../../components/statistics/Statistics";
 import useGenerateCats from "./functionalities/useGenerateCats";
 
-const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, setSearchTerm, filterByAge, isOnline, isServerOnline } ) => {
+const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, setSearchTerm, filterByAge, isOnline, isServerOnline, isGenerating, startGenerator, stopGenerator } ) => {
     const { selectedCat, selectCat } = useSelectedCat();
     const navigate = useNavigate();
-    const [isGenerating, setIsGenerating] = useState(false);
+    const [isGeneratingFrontend, setIsGeneratingFrontend] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange, isInfiniteScroll, loadMoreItems, hasMore } = usePagination(catEntities, 9);
 
-    useGenerateCats(isGenerating, addCat);
+    useGenerateCats(isGeneratingFrontend, addCat);
 
-    // simulate the load of items with a little delay of 3 ms
+    const handleToggleGeneration = () => {
+        const useFrontend = !isOnline || !isServerOnline;
+
+        if (useFrontend) {
+            setIsGeneratingFrontend(prev => !prev);
+        } else {
+            if (isGenerating) {
+                stopGenerator();
+            } else {
+                startGenerator();
+            }
+        }
+    };
+
+    // simulate the load of items with a little delay of 1 ms
     const handleLoadMore = () => {
         if (isLoading) return;
         setIsLoading(true);
         setTimeout(() => {
             loadMoreItems();
             setIsLoading(false);
-        }, 300);
+        }, 100);
     }
 
     return (
@@ -85,7 +99,19 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
                     <ListButton content={<> Show Kittens <span style={{ color: "#ff95b1" }}> ✿</span> </>} color="#FFD5D2" onClick={() => filterByAge(0, 2)}></ListButton>
                     <ListButton content={<> Show Adult Cats <span style={{ color: "#51294BFF" }}> ✿</span> </>} color="#FFD5D2" onClick={() => filterByAge(3, 10)}></ListButton>
                     <ListButton content={<> Show Senior Cats <span style={{ color: "#ffab25" }}> ✿</span> </>} color="#FFD5D2" onClick={() => filterByAge(11, 35)}></ListButton>
-                    <ListButton content={isGenerating ? "Stop Generating" : "Start Generating"} color="#FFDD4D" onClick={() => setIsGenerating(!isGenerating)}></ListButton>
+                    <ListButton
+                        content={
+                            (!isOnline || !isServerOnline)
+                                ? (isGeneratingFrontend ? "Stop GeneratingF" : "Start GeneratingF")
+                                : (isGenerating ? "Stop GeneratingB" : "Start GeneratingB")
+                        }
+                        color={
+                            (!isOnline || !isServerOnline)
+                                ? (isGeneratingFrontend ? "#FFDD4D" : "#f4a2b8")
+                                : (isGenerating ? "#FFDD4D" : "#f4a2b8")
+                        }
+                        onClick={handleToggleGeneration}>
+                    </ListButton>
                 </div>
 
                 <div className="all-rectangles-main cat-list-main">

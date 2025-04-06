@@ -8,13 +8,13 @@ import useCatData from "./pages/main_page/functionalities/useCatData";
 import UpdatePage from "./pages/update_page/UpdatePage";
 
 function App() {
-    const { catEntities, setSorting, sortConfig, deleteCat, addCat, updateCat, setNameFilter, filterByAge, isOnline, isServerOnline } = useCatData();
+    const { catEntities, setSorting, sortConfig, deleteCat, addCat, updateCat, setNameFilter, filterByAge, isOnline, isServerOnline, isGenerating, startGenerator, stopGenerator } = useCatData();
 
     return (
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<MainPage catEntities={catEntities} setSorting={setSorting} sortConfig={sortConfig} deleteCat={deleteCat} addCat={addCat} setSearchTerm={setNameFilter} filterByAge={filterByAge} isOnline={isOnline} isServerOnline={isServerOnline}/>}/>
+                    <Route path="/" element={<MainPage catEntities={catEntities} setSorting={setSorting} sortConfig={sortConfig} deleteCat={deleteCat} addCat={addCat} setSearchTerm={setNameFilter} filterByAge={filterByAge} isOnline={isOnline} isServerOnline={isServerOnline} isGenerating={isGenerating} startGenerator={startGenerator} stopGenerator={stopGenerator}/>}/>
                     <Route path="/:catName" element={<DetailPage catEntities={catEntities}/>} />
                     <Route path="/add" element={<AddPage catEntities={catEntities} addCat={addCat}/>}/>
                     <Route path="/update/:catName" element={<UpdatePage catEntities={catEntities} updateCat={updateCat}/>}/>
