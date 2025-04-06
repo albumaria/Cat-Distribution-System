@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "./MainPage.css"
 import CatCard from "../../components/cat_card/CatCard"
+import LoadMoreObserver from "../../components/cat_card/LoadMoreObserver"
 import Pagination from "../../components/pagination/Pagination";
 import PageSizeDropdown from "../../components/pagination/PageSizeDropdown";
 import usePagination from "./functionalities/usePagination";
@@ -15,10 +16,22 @@ import useGenerateCats from "./functionalities/useGenerateCats";
 const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, setSearchTerm, filterByAge, isOnline, isServerOnline } ) => {
     const { selectedCat, selectCat } = useSelectedCat();
     const navigate = useNavigate();
-    const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange } = usePagination(catEntities, 9);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const { paginatedData, currentPage, pageSize, totalPages, handlePageChange, handlePageSizeChange, isInfiniteScroll, loadMoreItems, hasMore } = usePagination(catEntities, 9);
 
     useGenerateCats(isGenerating, addCat);
+
+    // simulate the load of items with a little delay of 3 ms
+    const handleLoadMore = () => {
+        if (isLoading) return;
+        setIsLoading(true);
+        setTimeout(() => {
+            loadMoreItems();
+            setIsLoading(false);
+        }, 300);
+    }
 
     return (
         <div className="main-page-main">
@@ -79,12 +92,16 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
                     {paginatedData.map((cat) => (
                         <CatCard key={cat.id} cat={cat} onClick={() => selectCat(cat)} isSelected={selectedCat && selectedCat.id === cat.id}/>
                     ))}
+
+                    {isInfiniteScroll && <LoadMoreObserver onIntersect={handleLoadMore} isLoading={isLoading} hasMore={hasMore}></LoadMoreObserver>}
                 </div>
             </div>
 
             <div className="pagination-main">
-                <PageSizeDropdown pageSize={pageSize} setPageSize={handlePageSizeChange}></PageSizeDropdown>
-                <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages}></Pagination>
+                <PageSizeDropdown pageSize={pageSize} setPageSize={handlePageSizeChange} isInfiniteScroll={isInfiniteScroll}></PageSizeDropdown>
+                {!isInfiniteScroll &&
+                    <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={totalPages}></Pagination>
+                }
             </div>
 
             <div className="all-rectangles-main statistics-list-main">
