@@ -113,6 +113,7 @@
     height: 9vh;
     font-size: 5vh;
     border-radius: 3vh;
+    cursor: pointer;
 }
 
 .filtering-main {

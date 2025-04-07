@@ -50,7 +50,6 @@ const useCatData = () => {
 
     useEffect(() => {
         if (wsConnected && isServerOnline) {
-            // Subscribe to new cat notifications
             subscribe('/topic/cats', (newCat) => {
                 console.log('New cat received via WebSocket:', newCat);
             });

@@ -2,36 +2,38 @@ import React, {useEffect, useRef} from "react";
 
 
 const LoadMoreObserver = ({onIntersect, isLoading, hasMore }) => {
-    // this component will be placed at the end of the list, and has this reference which will be observed by the observer
     const observerRef = useRef();
+    const observerInstance = useRef(null);
 
     useEffect(() => {
         if (!hasMore) return;
 
-        const observer = new IntersectionObserver(
+        if (observerInstance.current) {
+            observerInstance.current.disconnect();
+        }
+
+        observerInstance.current = new IntersectionObserver(
             (entries) => {
                 if (entries[0].isIntersecting && !isLoading) {
                     onIntersect();
                 }
             },
-            {threshold: 0.01} // so that the loading starts as soon as just 0.01 part of the element is seen
+            {threshold: 0.1}
         );
 
-        // start observing the element
         if (observerRef.current) {
-            observer.observe(observerRef.current);
+            observerInstance.current.observe(observerRef.current);
         }
 
-        // stop the observer when the component is not in the page anymore (finished loading all)
         return () => {
             if (observerRef["current"]) {
-                observer.unobserve(observerRef["current"]);
+                observerInstance.current.disconnect();
             }
         }
 
     }, [onIntersect, isLoading, hasMore]);
 
-    if (!hasMore && !isLoading) return null;
+    if (!hasMore) return null;
 
     return (
         <div ref={observerRef} style={{display: 'flex', justifyContent: 'center', color: '#51294B', textAlign: 'center', fontSize: '3vh'}}>

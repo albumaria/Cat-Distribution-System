@@ -4,10 +4,8 @@ const usePagination = (data, initialPageSize = 9) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(initialPageSize);
     const [isInfiniteScroll, setIsInfiniteScroll] = useState(false);
-    const [loadedCount, setLoadedCount] = useState(0);
-
-    // used to see if the data source has changed or not
-    const [dataSourceId, setDataSourceId] = useState(Date.now());
+    const [loadedCount, setLoadedCount] = useState(initialPageSize);
+    const [dataSourceId, setDataSourceId] = useState(Date.now()); // used to see if the data source has changed or not
 
 
     // when data length changes, check if the data source changed
@@ -67,16 +65,10 @@ const usePagination = (data, initialPageSize = 9) => {
 
     // increment the loadCount by 9 for each scroll down, triggered when the div at the end is in view
     const loadMoreItems = () => {
-        if (!isInfiniteScroll || loadedCount >= data.length) {
-            return false;
-        }
-
+        if (!isInfiniteScroll || loadedCount >= data.length) return false;
         const newLoadedCount = Math.min(loadedCount + 9, data.length);
-        if (newLoadedCount > loadedCount) {
-            setLoadedCount(newLoadedCount);
-            return true;
-        }
-        return false;
+        setLoadedCount(newLoadedCount);
+        return true;
     };
 
 

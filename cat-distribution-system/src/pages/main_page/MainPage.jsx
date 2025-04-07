@@ -12,6 +12,7 @@ import FilterBar from "../../components/input_bars/FilterBar";
 import SortDropdown from "../../components/sort_dropdown/SortDropdown";
 import Statistics from "../../components/statistics/Statistics";
 import useGenerateCats from "./functionalities/useGenerateCats";
+import { downloadCatApp } from "../../backend/backendFileManagement";
 
 const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, setSearchTerm, filterByAge, isOnline, isServerOnline, isGenerating, startGenerator, stopGenerator } ) => {
     const { selectedCat, selectCat } = useSelectedCat();
@@ -37,14 +38,14 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
         }
     };
 
-    // simulate the load of items with a little delay of 1 ms
+    // simulate the load delay
     const handleLoadMore = () => {
         if (isLoading) return;
         setIsLoading(true);
         setTimeout(() => {
             loadMoreItems();
             setIsLoading(false);
-        }, 100);
+        }, 300);
     }
 
     return (
@@ -78,7 +79,7 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
             </div>
 
             <div className="orange-border-container-main">
-                <div className="orange-border-quiz-button-main">Take the Quiz Now! ⋆˚🐾˖°</div>
+                <div className="orange-border-quiz-button-main" onClick={() => downloadCatApp()}>Take the Quiz Now! ⋆˚🐾˖°</div>
             </div>
 
             <div className="filtering-main">
@@ -102,8 +103,8 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
                     <ListButton
                         content={
                             (!isOnline || !isServerOnline)
-                                ? (isGeneratingFrontend ? "Stop GeneratingF" : "Start GeneratingF")
-                                : (isGenerating ? "Stop GeneratingB" : "Start GeneratingB")
+                                ? (isGeneratingFrontend ? "Stop Generating" : "Start Generating")
+                                : (isGenerating ? "Stop Generating" : "Start Generating")
                         }
                         color={
                             (!isOnline || !isServerOnline)
