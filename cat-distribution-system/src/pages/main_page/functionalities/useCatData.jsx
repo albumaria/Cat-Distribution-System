@@ -84,8 +84,37 @@ const useCatData = () => {
         }
     }, [ searchTerm, ageFilter, sortConfig, isOnline, isServerOnline, localCats ]);
 
+    // load the cats with a delay of 500ms, and stop the get requests if the page is not visible
     useEffect(() => {
-        loadCats();
+        let timeoutId = null;
+
+        if (document.visibilityState === 'visible') {
+            timeoutId = setTimeout(() => {
+                loadCats();
+            }, 500);
+        }
+
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                timeoutId = setTimeout(() => {
+                    loadCats();
+                }, 500);
+            } else {
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                    timeoutId = null;
+                }
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
     }, [loadCats]);
 
     useEffect(() => {
