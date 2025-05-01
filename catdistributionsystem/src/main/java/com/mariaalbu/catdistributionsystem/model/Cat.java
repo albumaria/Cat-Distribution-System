@@ -1,8 +1,7 @@
 package com.mariaalbu.catdistributionsystem.model;
 
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +11,8 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "cats")
 public class Cat {
     @Id
     @GeneratedValue
@@ -28,4 +29,7 @@ public class Cat {
     private String description;
 
     private String image;
+
+    @Version
+    private Long version = 0L;
 }

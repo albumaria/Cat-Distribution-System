@@ -5,7 +5,7 @@ import { Client } from '@stomp/stompjs';
 const useWebSocket = (url) => {
     const [connected, setConnected] = useState(false);
     const [error, setError] = useState(null);
-    const [isGenerating, setIsGenerating] = useState(false); // Always start with false
+    const [isGenerating, setIsGenerating] = useState(false);
     const clientRef = useRef(null);
     const subscriptionsRef = useRef({});
 

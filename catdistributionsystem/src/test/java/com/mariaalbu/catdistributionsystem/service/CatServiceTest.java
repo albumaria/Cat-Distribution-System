@@ -1,7 +1,7 @@
 package com.mariaalbu.catdistributionsystem.service;
 
 import com.mariaalbu.catdistributionsystem.model.Cat;
-import com.mariaalbu.catdistributionsystem.repository.CatRepository;
+import com.mariaalbu.catdistributionsystem.repository.ICatRepository;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 class CatServiceTest {
 
     @Mock
-    private CatRepository catRepository;
+    private ICatRepository catRepository;
 
     @InjectMocks
     private CatService catService;
@@ -61,7 +61,7 @@ class CatServiceTest {
     void addCat_testAddCat() {
         when(catRepository.findAll()).thenReturn(Collections.emptyList());
         catService.addCat(testCat);
-        verify(catRepository, times(1)).addCat(testCat);
+        verify(catRepository, times(1)).save(testCat);
     }
 
     @Test

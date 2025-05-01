@@ -13,6 +13,7 @@ const AddPage = ( { catEntities, addCat }) => {
     const [description, setDescription] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [error, setError] = useState("");
+    const [isUploading, setIsUploading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -39,6 +40,10 @@ const AddPage = ( { catEntities, addCat }) => {
 
         if (!description.trim()) {
             return "Description cannot be empty.";
+        }
+
+        if (isUploading) {
+            return "Image is still uploading. Please wait.";
         }
 
         if (!imageUrl) {
@@ -76,7 +81,7 @@ const AddPage = ( { catEntities, addCat }) => {
                 <InputBar placeHolder="Age" value={age} onChange={(e) => setAge(e.target.value)}></InputBar>
                 <InputBar placeHolder="Weight" value={weight} onChange={(e) => setWeight(e.target.value)}></InputBar>
                 <InputBar placeHolder="Description" value={description} onChange={(e) => setDescription(e.target.value)}></InputBar>
-                <InputFileButton onFileSelect={(url) => setImageUrl(url)}></InputFileButton>
+                <InputFileButton onFileSelect={(url) => { setImageUrl(url); setIsUploading(false);}} onUploadStart={() => setIsUploading(true)}></InputFileButton>
 
                 <Button content="Add Cat" color="#51294B" width="30vw" onClick={handleAddCat}></Button>
             </div>

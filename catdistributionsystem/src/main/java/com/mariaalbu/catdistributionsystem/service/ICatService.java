@@ -1,7 +1,6 @@
 package com.mariaalbu.catdistributionsystem.service;
 
 import com.mariaalbu.catdistributionsystem.model.Cat;
-import com.mariaalbu.catdistributionsystem.repository.CatRepository;
 
 import java.util.List;
 import java.util.Optional;

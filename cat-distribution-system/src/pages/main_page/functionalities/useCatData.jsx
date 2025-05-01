@@ -91,14 +91,14 @@ const useCatData = () => {
         if (document.visibilityState === 'visible') {
             timeoutId = setTimeout(() => {
                 loadCats();
-            }, 500);
+            }, 200);
         }
 
         const handleVisibilityChange = () => {
             if (document.visibilityState === 'visible') {
                 timeoutId = setTimeout(() => {
                     loadCats();
-                }, 500);
+                }, 200);
             } else {
                 if (timeoutId) {
                     clearTimeout(timeoutId);

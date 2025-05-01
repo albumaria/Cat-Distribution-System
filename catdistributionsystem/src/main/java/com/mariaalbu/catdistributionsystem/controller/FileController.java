@@ -81,7 +81,6 @@ public class FileController {
     @GetMapping("/download/cat-app")
     public ResponseEntity<byte[]> downloadCatApp() {
         try {
-            // Replace this path with the actual path to your EXE file
             Path filePath = Paths.get("D:\\Cat-Distribution-System-React-App\\catdistributionsystem\\src\\main\\java\\com\\mariaalbu\\catdistributionsystem\\downloads\\StarUML Setup 6.3.1.exe");
             byte[] fileBytes = Files.readAllBytes(filePath);
 

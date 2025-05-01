@@ -6,6 +6,7 @@ import DetailPage from "./pages/detail_page/DetailPage";
 import AddPage from "./pages/add_page/AddPage"
 import useCatData from "./pages/main_page/functionalities/useCatData";
 import UpdatePage from "./pages/update_page/UpdatePage";
+import MischiefPage from "./pages/mischief_records_page/MischiefPage";
 
 function App() {
     const { catEntities, setSorting, sortConfig, deleteCat, addCat, updateCat, setNameFilter, filterByAge, isOnline, isServerOnline, isGenerating, startGenerator, stopGenerator } = useCatData();
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/:catName" element={<DetailPage catEntities={catEntities}/>} />
                     <Route path="/add" element={<AddPage catEntities={catEntities} addCat={addCat}/>}/>
                     <Route path="/update/:catName" element={<UpdatePage catEntities={catEntities} updateCat={updateCat}/>}/>
+                    <Route path="/:catName/mischief" element={<MischiefPage catEntities={catEntities}/>} />
                 </Routes>
             </BrowserRouter>
         </div>

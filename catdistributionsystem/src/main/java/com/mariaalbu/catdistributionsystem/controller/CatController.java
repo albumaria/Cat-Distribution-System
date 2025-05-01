@@ -35,8 +35,7 @@ public class CatController {
     @PostMapping
     public void addCat(@RequestBody Cat cat) {
         try {
-            UUID newId = UUID.randomUUID();
-            cat.setId(newId);
+            System.out.println("Received cat: " + cat);
             catService.addCat(cat);
         }
         catch (IllegalArgumentException e) {
@@ -79,7 +78,6 @@ public class CatController {
         catGeneratorService.stopGenerating();
     }
 
-    // WebSocket endpoints
     @MessageMapping("/request-cats")
     @SendTo("/topic/cats-list")
     public List<Cat> sendCatsList() {

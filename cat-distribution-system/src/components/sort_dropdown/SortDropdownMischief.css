@@ -1,0 +1,22 @@
+.sort-select-mischief-dropdown-first {
+    background-color: #f4a2b8;
+    color: #51294B;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-size: 2vh;
+    border-radius: 1.5vh;
+    height: 5vh;
+    width: 10vw;
+    text-align: center;
+    margin-right: 1.8vw;
+}
+
+.sort-select-mischief-dropdown-second {
+    background-color: #51294B;
+    color: #FFD5D2;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-size: 2vh;
+    border-radius: 1.5vh;
+    height: 5vh;
+    width: 7vw;
+    text-align: center;
+}
