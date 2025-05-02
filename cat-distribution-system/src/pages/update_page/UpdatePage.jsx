@@ -59,7 +59,7 @@ const UpdatePage = ( { catEntities, updateCat }) => {
         const newCat = {id: cat.id, name: name.trim(), gender: gender.toUpperCase(), age: parseInt(age), weight: parseFloat(weight), description: description.trim(), image: imageUrl};
         updateCat(cat, newCat);
 
-        navigate('/');
+        navigate('/main');
     };
 
     if (!cat) {

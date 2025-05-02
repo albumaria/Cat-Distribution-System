@@ -10,7 +10,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class CatService implements ICatService {
+public class CatService {
     private final ICatRepository catRepository;
 
     public CatService(ICatRepository catRepository) {

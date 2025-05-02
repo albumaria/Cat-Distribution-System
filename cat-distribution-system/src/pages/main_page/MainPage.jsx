@@ -51,7 +51,7 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
     return (
         <div className="main-page-main">
             <div className="all-rectangles-main navbar-main">
-                <a href="https://github.com/albumaria/Cat-Distribution-System/tree/main">
+                <a href="https://github.com/albumaria/Cat-Distribution-System/tree/temp-branch">
                     <div className="navbar-project-link-main">Purroject link 🩷</div>
                 </a>
                 <div style={{width: "2vw", marginLeft: "0.5vw"}}><img src="https://i.imgur.com/DXtd1ZV.png" alt="github-icon"/></div>

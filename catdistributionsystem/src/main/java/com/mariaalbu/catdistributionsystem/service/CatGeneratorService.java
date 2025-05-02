@@ -137,11 +137,10 @@ public class CatGeneratorService {
 
     private Cat generateRandomCat() {
         Cat cat = new Cat();
-        cat.setId(UUID.randomUUID());
         cat.setName(generateUniqueName());
         cat.setGender(random.nextBoolean() ? "M" : "F");
-        cat.setAge(random.nextInt(21)); // 0-20 age range
-        cat.setWeight(Math.round((2.5 + random.nextDouble() * 5.5) * 10.0) / 10.0); // Round to 1 decimal place
+        cat.setAge(random.nextInt(21));
+        cat.setWeight(Math.round((2.5 + random.nextDouble() * 5.5) * 10.0) / 10.0);
         cat.setDescription(generateDescription(cat.getName(), cat.getGender(), cat.getAge()));
         cat.setImage(fetchCatImage());
 

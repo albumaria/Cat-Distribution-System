@@ -65,7 +65,10 @@ const MischiefPage = ({ catEntities }) => {
                 <SortDropdownMischief currentSort={sortOption} onSortChange={setSortOption} currentWasCaught={wasCaught} onWasCaughtChange={setWasCaught}></SortDropdownMischief>
             </div>
             {records.length === 0 ? (
-                <p>No mischief records found for this cat.</p>
+                <>
+                    <p>No mischief records found for this cat.</p>
+                    <MischiefButton content="+" color="#51294B" width="3.4vw" onClick={() => setShowAddForm(true)}/>
+                </>
             ) : (
                 <table className="table-mischief">
                     <thead>

@@ -7,6 +7,8 @@ import AddPage from "./pages/add_page/AddPage"
 import useCatData from "./pages/main_page/functionalities/useCatData";
 import UpdatePage from "./pages/update_page/UpdatePage";
 import MischiefPage from "./pages/mischief_records_page/MischiefPage";
+import LoginPage from "./pages/login_page/LoginPage";
+import SignupPage from "./pages/signup_page/SignupPage";
 
 function App() {
     const { catEntities, setSorting, sortConfig, deleteCat, addCat, updateCat, setNameFilter, filterByAge, isOnline, isServerOnline, isGenerating, startGenerator, stopGenerator } = useCatData();
@@ -15,7 +17,9 @@ function App() {
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<MainPage catEntities={catEntities} setSorting={setSorting} sortConfig={sortConfig} deleteCat={deleteCat} addCat={addCat} setSearchTerm={setNameFilter} filterByAge={filterByAge} isOnline={isOnline} isServerOnline={isServerOnline} isGenerating={isGenerating} startGenerator={startGenerator} stopGenerator={stopGenerator}/>}/>
+                    <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/signup" element={<SignupPage/>}/>
+                    <Route path="/main" element={<MainPage catEntities={catEntities} setSorting={setSorting} sortConfig={sortConfig} deleteCat={deleteCat} addCat={addCat} setSearchTerm={setNameFilter} filterByAge={filterByAge} isOnline={isOnline} isServerOnline={isServerOnline} isGenerating={isGenerating} startGenerator={startGenerator} stopGenerator={stopGenerator}/>}/>
                     <Route path="/:catName" element={<DetailPage catEntities={catEntities}/>} />
                     <Route path="/add" element={<AddPage catEntities={catEntities} addCat={addCat}/>}/>
                     <Route path="/update/:catName" element={<UpdatePage catEntities={catEntities} updateCat={updateCat}/>}/>
