@@ -24,9 +24,16 @@
     align-items: center;
     flex-direction: row;
     padding-left: 4%;
+    padding-right: 4%;
+    justify-content: space-between;
 }
 
 .navbar-project-link-main {
+    color: #F2B45A;
+    font-size: 2vh;
+}
+
+.navbar-current-user-main {
     color: #F2B45A;
     font-size: 2vh;
 }

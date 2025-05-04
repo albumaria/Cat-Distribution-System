@@ -32,4 +32,8 @@ public class Cat {
 
     @Version
     private Long version = 0L;
+
+    @ManyToOne
+    private User user;
+
 }

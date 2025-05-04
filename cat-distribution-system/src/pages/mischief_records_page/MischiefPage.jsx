@@ -5,7 +5,7 @@ import {
     addMischiefRecordBackend,
     deleteMischiefRecordBackend,
     fetchMischiefRecordsBackend, updateMischiefRecordBackend
-} from "../../backend/backendMischiefRecordsManagement";
+} from "../../backend/BackendMischiefRecordsManagement";
 import FilterBar from "../../components/input_bars/FilterBar";
 import SortDropdownMischief from "../../components/sort_dropdown/SortDropdownMischief";
 import MischiefButton from "../../components/buttons/MischiefButton";

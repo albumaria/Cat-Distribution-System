@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
+import {getUser} from "../../../utils/UserSession";
 
 const useWebSocket = (url) => {
     const [connected, setConnected] = useState(false);
@@ -78,7 +79,8 @@ const useWebSocket = (url) => {
 
     const startGenerator = useCallback(async () => {
         try {
-            await fetch('http://localhost:8080/cats/generator/start', { method: 'POST' });
+            const userId = getUser().id;
+            await fetch(`http://localhost:8080/cats/generator/start?user=${userId}`, { method: 'POST' });
             setIsGenerating(true);
         } catch (err) {
             console.error('Failed to start generator:', err);

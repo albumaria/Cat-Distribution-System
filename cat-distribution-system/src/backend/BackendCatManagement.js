@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {getUser} from "../utils/UserSession";
+import {addOperationLogBackend} from "./BackendOperationLogManagement";
 
 const API_URL = 'http://localhost:8080/cats';
 
@@ -11,7 +13,7 @@ export const checkBackendStatus = async () => {
     }
 };
 
-export const fetchCatsBackend = async (searchTerm, sortBy, direction, minAge, maxAge) => {
+export const fetchCatsBackend = async (searchTerm, sortBy, direction, minAge, maxAge, user) => {
     try {
         const url = `${API_URL}/filter-sort`;
 
@@ -31,6 +33,9 @@ export const fetchCatsBackend = async (searchTerm, sortBy, direction, minAge, ma
         if (maxAge !== undefined) {
             params.append('maxAge', maxAge);
         }
+        if (user && user.id) {
+            params.append('user', user.id);
+        }
 
         const response = await axios.get(`${url}?${params.toString()}`);
         return response.data;
@@ -43,7 +48,9 @@ export const fetchCatsBackend = async (searchTerm, sortBy, direction, minAge, ma
 
 export const addCatBackend = async (catData) => {
     try {
-        const response = await axios.post(API_URL, catData);
+        const response = await axios.post(`${API_URL}/${getUser().id}`, catData);
+        let operationLog = { action: "Add", entity: "Cat", performdate: null}
+        await addOperationLogBackend(operationLog);
         return response.data;
     } catch (error) {
         console.error("Error adding cat:", error);
@@ -54,6 +61,8 @@ export const addCatBackend = async (catData) => {
 export const deleteCatBackend = async (id) => {
     try {
         const response = await axios.delete(`${API_URL}/${id}`);
+        let operationLog = { action: "Delete", entity: "Cat", performdate: null}
+        await addOperationLogBackend(operationLog);
         return response.data;
     } catch (error) {
         console.error("Error deleting cat:", error);
@@ -65,6 +74,8 @@ export const deleteCatBackend = async (id) => {
 export const updateCatBackend = async (id, catData) => {
     try {
         const response = await axios.patch(`${API_URL}/${id}`, catData);
+        let operationLog = { action: "Update", entity: "Cat", performdate: null}
+        await addOperationLogBackend(operationLog);
         return response.data;
     } catch (error) {
         console.error("Error updating cat:", error);

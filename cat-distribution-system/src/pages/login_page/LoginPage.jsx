@@ -2,11 +2,12 @@ import React, {useState} from "react";
 import InputBar from "../../components/input_bars/InputBar";
 import Button from "../../components/buttons/Button";
 import {useNavigate} from "react-router-dom";
-import {getUserBackend} from "../../backend/backendUserManagement";
+import {getUserBackend} from "../../backend/BackendUserManagement";
 import bcrypt from "bcryptjs";
 import PasswordInputBar from "../../components/input_bars/PasswordInputBar";
+import {setUser} from "../../utils/UserSession";
 
-const LoginPage = ( { catEntities, addCat }) => {
+const LoginPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -41,6 +42,8 @@ const LoginPage = ( { catEntities, addCat }) => {
             alert("Invalid password");
             return;
         }
+
+        setUser(user);
 
         navigate('/main');
     };

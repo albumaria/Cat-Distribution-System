@@ -31,4 +31,6 @@ public class User {
 
     @Version
     private Long version = 0L;
+
+    private Boolean isMonitored;
 }

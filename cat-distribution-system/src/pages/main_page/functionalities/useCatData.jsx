@@ -1,8 +1,9 @@
 import {useCallback, useEffect, useState} from 'react';
-import { fetchCatsBackend, checkBackendStatus, addCatBackend, deleteCatBackend, updateCatBackend } from "../../../backend/backendCatManagement";
+import { fetchCatsBackend, checkBackendStatus, addCatBackend, deleteCatBackend, updateCatBackend } from "../../../backend/BackendCatManagement";
 import { fetchCatsFrontend, addCatFrontend, deleteCatFrontend, updateCatFrontend } from "../../../frontend/frontendCatManagement";
 import CatEntities from "../../../assets/CatEntities";
 import useWebSocket from "./useWebSocket";
+import {getUser, setUser} from "../../../utils/UserSession";
 
 const useCatData = () => {
     const [isOnline, setOnlineStatus] = useState(navigator.onLine);
@@ -10,6 +11,8 @@ const useCatData = () => {
 
     const [catEntities, setCatEntities] = useState([]);
     const [localCats, setLocalCats] = useState([...CatEntities]);
+
+    const [user, setUserState] = useState(getUser());
 
     const [searchTerm, setSearchTerm] = useState("");
     const [ageFilter, setAgeFilter] = useState({minAge: undefined, maxAge: undefined});
@@ -25,6 +28,25 @@ const useCatData = () => {
         startGenerator,
         stopGenerator
     } = useWebSocket('http://localhost:8080/ws-cats')
+
+    useEffect(() => {
+        const checkUser = () => {
+            const current = getUser();
+            setUser(current);
+            setUserState(current);
+        };
+
+        checkUser();
+        const interval = setInterval(checkUser, 5000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (user) {
+            loadCats();
+        }
+    }, [user]);
 
     useEffect(() => {
         const handleOnline = () => setOnlineStatus(true);
@@ -72,12 +94,22 @@ const useCatData = () => {
     const loadCats = useCallback(async () => {
         try {
             if(isOnline && isServerOnline) {
-                const data = await fetchCatsBackend(searchTerm, sortConfig.key, sortConfig.direction === 'ascending', ageFilter.minAge, ageFilter.maxAge);
+                const data = await fetchCatsBackend(searchTerm, sortConfig.key, sortConfig.direction === 'ascending', ageFilter.minAge, ageFilter.maxAge, getUser());
                 setCatEntities(data);
                 setLocalCats(data);
             }
             else {
-                setCatEntities(fetchCatsFrontend(localCats, searchTerm, ageFilter, sortConfig));
+                const allCats = fetchCatsFrontend(localCats, searchTerm, ageFilter, sortConfig);
+
+                const currentUser = getUser();
+                if (currentUser) {
+                    const filteredCats = allCats.filter(cat =>
+                        cat.user && cat.user.id === currentUser.id
+                    );
+                    setCatEntities(filteredCats);
+                } else {
+                    setCatEntities(allCats);
+                }
             }
         } catch (error) {
             console.error("Error loading cats:", error);

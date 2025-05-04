@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {addOperationLogBackend} from "./BackendOperationLogManagement";
 
 const API_URL = "http://localhost:8080/mischief"
 
@@ -39,6 +40,8 @@ export const fetchMischiefRecordsBackend = async (catId, descriptionFilter, sort
 export const addMischiefRecordBackend = async (catId, mischiefRecordData) => {
     try {
         const response = await axios.post(`http://localhost:8080/mischief/${catId}`, mischiefRecordData);
+        let operationLog = { action: "Add", entity: "MischiefRecord", performdate: null}
+        await addOperationLogBackend(operationLog);
         return response.data;
     }
     catch(error) {
@@ -50,6 +53,8 @@ export const addMischiefRecordBackend = async (catId, mischiefRecordData) => {
 export const deleteMischiefRecordBackend = async (id) => {
     try {
         const response = await axios.delete(`${API_URL}/${id}`);
+        let operationLog = { action: "Delete", entity: "MischiefRecord", performdate: null}
+        await addOperationLogBackend(operationLog);
         return response.data;
     } catch (error) {
         console.error("Error deleting mischief record:", error);
@@ -60,13 +65,14 @@ export const deleteMischiefRecordBackend = async (id) => {
 
 export const updateMischiefRecordBackend = async (mischiefRecordData) => {
     try {
-        // Use the ID from the mischief record itself
         const recordId = mischiefRecordData.id;
         if (!recordId) {
             throw new Error("Mischief record ID is required for updates");
         }
 
         const response = await axios.patch(`${API_URL}/${recordId}`, mischiefRecordData);
+        let operationLog = { action: "Update", entity: "MischiefRecord", performdate: null}
+        await addOperationLogBackend(operationLog);
         return response.data;
     } catch (error) {
         console.error("Error updating mischief record:", error);

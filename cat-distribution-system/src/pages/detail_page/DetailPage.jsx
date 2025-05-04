@@ -1,7 +1,7 @@
 import React from "react";
 import "./DetailPage.css"
 import {useNavigate, useParams} from "react-router-dom";
-import {downloadCatImage} from "../../backend/backendFileManagement";
+import {downloadCatImage} from "../../backend/BackendFileManagement";
 import Button from "../../components/buttons/Button";
 
 const DetailPage = ({catEntities}) => {

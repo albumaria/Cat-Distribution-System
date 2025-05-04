@@ -1,12 +1,14 @@
 package com.mariaalbu.catdistributionsystem.service;
 
 import com.mariaalbu.catdistributionsystem.model.Cat;
+import com.mariaalbu.catdistributionsystem.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import net.datafaker.Faker;
 
 import java.util.Random;
 import java.util.UUID;
@@ -27,6 +29,9 @@ public class CatGeneratorService {
     private final AtomicBoolean isGenerating = new AtomicBoolean(false);
     private final Set<String> usedNames = new HashSet<>();
     private final RestTemplate restTemplate = new RestTemplate();
+
+    private UUID currentUserId;
+    private final UserService userService;
 
     private static final String[] CAT_NAMES = {
             "Oliver", "Bella", "Leo", "Lily", "Milo", "Nala", "Simba",
@@ -54,19 +59,22 @@ public class CatGeneratorService {
     private static final String CAT_API_KEY = "live_vqheiDqxrBRmftyRK83qVlcbmM4fv8PfvvODBg7XLAQ8DQmcWdrVcutiUoMxkPss";
 
     @Autowired
-    public CatGeneratorService(CatService catService, SimpMessagingTemplate messagingTemplate) {
+    public CatGeneratorService(CatService catService, SimpMessagingTemplate messagingTemplate, UserService userService) {
         this.catService = catService;
         this.messagingTemplate = messagingTemplate;
+        this.userService = userService;
     }
 
-    public void startGenerating() {
+    public void startGenerating(UUID userId) {
         if (isGenerating.compareAndSet(false, true)) {
+            this.currentUserId = userId;
             scheduler.scheduleAtFixedRate(this::generateAndBroadcastCat, 0, 3, TimeUnit.SECONDS);
         }
     }
 
     public void stopGenerating() {
         isGenerating.set(false);
+        this.currentUserId = null;
     }
 
     private void generateAndBroadcastCat() {
@@ -76,6 +84,9 @@ public class CatGeneratorService {
 
         try {
             Cat newCat = generateRandomCat();
+
+            User user = this.userService.getUserById(this.currentUserId);
+            newCat.setUser(user);
             catService.addCat(newCat);
 
             messagingTemplate.convertAndSend("/topic/cats", newCat);
@@ -87,8 +98,9 @@ public class CatGeneratorService {
 
     private String generateUniqueName() {
         String name;
+        Faker faker = new Faker();
         do {
-            name = CAT_NAMES[random.nextInt(CAT_NAMES.length)];
+            name = faker.cat().name();
         } while (usedNames.contains(name));
         usedNames.add(name);
         return name;

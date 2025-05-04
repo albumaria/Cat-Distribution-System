@@ -12,7 +12,8 @@ import FilterBar from "../../components/input_bars/FilterBar";
 import SortDropdown from "../../components/sort_dropdown/SortDropdown";
 import Statistics from "../../components/statistics/Statistics";
 import useGenerateCats from "./functionalities/useGenerateCats";
-import { downloadCatApp } from "../../backend/backendFileManagement";
+import { downloadCatApp } from "../../backend/BackendFileManagement";
+import {getUser} from "../../utils/UserSession";
 
 const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, setSearchTerm, filterByAge, isOnline, isServerOnline, isGenerating, startGenerator, stopGenerator } ) => {
     const { selectedCat, selectCat } = useSelectedCat();
@@ -51,10 +52,11 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
     return (
         <div className="main-page-main">
             <div className="all-rectangles-main navbar-main">
-                <a href="https://github.com/albumaria/Cat-Distribution-System/tree/temp-branch">
+                <a style={{display:"flex", alignItems:"center"}} href="https://github.com/albumaria/Cat-Distribution-System/tree/temp-branch">
                     <div className="navbar-project-link-main">Purroject link 🩷</div>
+                    <div style={{width: "2vw", marginLeft: "0.5vw"}}><img src="https://i.imgur.com/DXtd1ZV.png" alt="github-icon"/></div>
                 </a>
-                <div style={{width: "2vw", marginLeft: "0.5vw"}}><img src="https://i.imgur.com/DXtd1ZV.png" alt="github-icon"/></div>
+                <div className="navbar-current-user-main">Logged In: {getUser().username}</div>
             </div>
 
             <div className="all-rectangles-main title-banner-main">
@@ -113,6 +115,13 @@ const MainPage = ( { catEntities, setSorting, sortConfig, deleteCat, addCat, set
                         }
                         onClick={handleToggleGeneration}>
                     </ListButton>
+                    {getUser().role === "Admin" && (
+                        <ListButton
+                            content="Admin Panel"
+                            color="#A8DADC"
+                            onClick={() => navigate("/monitoredUsers")}
+                        />
+                    )}
                 </div>
 
                 <div className="all-rectangles-main cat-list-main">

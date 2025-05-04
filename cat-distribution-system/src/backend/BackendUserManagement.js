@@ -34,3 +34,14 @@ export const getUserBackend = async (username) => {
         throw error;
     }
 };
+
+export const getMonitoredUsersBackend = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/monitored-users`);
+        return response.data;
+    }
+    catch (error) {
+        console.error("Error adding user:", error);
+        throw error;
+    }
+};

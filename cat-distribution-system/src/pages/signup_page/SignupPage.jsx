@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import InputBar from "../../components/input_bars/InputBar";
 import Button from "../../components/buttons/Button";
 import {useNavigate} from "react-router-dom";
-import {addUserBackend} from "../../backend/backendUserManagement";
+import {addUserBackend} from "../../backend/BackendUserManagement";
 import bcrypt from 'bcryptjs';
 import PasswordInputBar from "../../components/input_bars/PasswordInputBar";
 

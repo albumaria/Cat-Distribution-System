@@ -1,8 +1,10 @@
 package com.mariaalbu.catdistributionsystem.controller;
 
 import com.mariaalbu.catdistributionsystem.model.Cat;
+import com.mariaalbu.catdistributionsystem.model.User;
 import com.mariaalbu.catdistributionsystem.service.CatGeneratorService;
 import com.mariaalbu.catdistributionsystem.service.CatService;
+import com.mariaalbu.catdistributionsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -15,11 +17,13 @@ import java.util.*;
 public class CatController {
     private final CatService catService;
     private final CatGeneratorService catGeneratorService;
+    private final UserService userService;
 
     @Autowired
-    public CatController(CatService catService, CatGeneratorService catGeneratorService) {
+    public CatController(CatService catService, CatGeneratorService catGeneratorService, UserService userService) {
         this.catService = catService;
         this.catGeneratorService = catGeneratorService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -32,9 +36,14 @@ public class CatController {
         return catService.getCatById(id);
     }
 
-    @PostMapping
-    public void addCat(@RequestBody Cat cat) {
+    @PostMapping("/{userId}")
+    public void addCat(@PathVariable UUID userId, @RequestBody Cat cat) {
         try {
+            cat.setId(null);
+
+            User user = userService.getUserById(userId);
+            cat.setUser(user);
+
             System.out.println("Received cat: " + cat);
             catService.addCat(cat);
         }
@@ -59,8 +68,13 @@ public class CatController {
     }
 
     @GetMapping("/filter-sort")
-    public List<Cat> filterAndSortCats(@RequestParam(required = false) String nameFilter, @RequestParam(required = false) Integer minAge, @RequestParam(required = false) Integer maxAge, @RequestParam(required = false) String sortBy, @RequestParam(required = false) Boolean ascending) {
-        return catService.filterAndSortCats(nameFilter, minAge, maxAge, sortBy, ascending);
+    public List<Cat> filterAndSortCats(@RequestParam(required = false) String nameFilter, @RequestParam(required = false) Integer minAge, @RequestParam(required = false) Integer maxAge, @RequestParam(required = false) String sortBy, @RequestParam(required = false) Boolean ascending, @RequestParam UUID user) {
+        User userObj = null;
+        if (user != null) {
+            userObj = userService.findById(user).orElse(null);
+        }
+
+        return catService.filterAndSortCats(nameFilter, minAge, maxAge, sortBy, ascending, userObj);
     }
 
     @GetMapping("/generator/status")
@@ -69,8 +83,8 @@ public class CatController {
     }
 
     @PostMapping("/generator/start")
-    public void startGenerator() {
-        catGeneratorService.startGenerating();
+    public void startGenerator(@RequestParam UUID user) {
+        catGeneratorService.startGenerating(user);
     }
 
     @PostMapping("/generator/stop")

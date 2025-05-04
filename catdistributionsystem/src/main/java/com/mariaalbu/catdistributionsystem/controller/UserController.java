@@ -43,6 +43,11 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/monitored-users")
+    public List<User> getMonitoredUsers() {
+        return this.userService.getMonitoredUsers();
+    }
+
     @PostMapping
     public void addUser(@RequestBody User user) {
         try {

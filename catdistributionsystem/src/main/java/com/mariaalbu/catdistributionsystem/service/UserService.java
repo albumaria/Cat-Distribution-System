@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -34,5 +35,14 @@ public class UserService {
     public void addUser(User user) {
         user.setCreatedate(LocalDateTime.now());
         this.userRepository.save(user);
+    }
+
+    public Optional<User> findById(UUID id) {
+        return userRepository.findById(id);
+    }
+
+    public List<User> getMonitoredUsers() {
+
+        return userRepository.findByIsMonitoredTrue();
     }
 }

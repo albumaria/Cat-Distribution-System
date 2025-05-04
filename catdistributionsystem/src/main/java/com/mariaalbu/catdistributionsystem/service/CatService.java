@@ -1,6 +1,7 @@
 package com.mariaalbu.catdistributionsystem.service;
 
 import com.mariaalbu.catdistributionsystem.model.Cat;
+import com.mariaalbu.catdistributionsystem.model.User;
 import com.mariaalbu.catdistributionsystem.repository.ICatRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -37,14 +38,18 @@ public class CatService {
 
     public void updateCat(UUID id, Cat updatedCat) {
         validateCat(updatedCat, true);
+        Cat existingCat = this.catRepository.findById(id).orElse(null);
         updatedCat.setId(id);
+        updatedCat.setUser(existingCat.getUser());
+        updatedCat.setVersion(existingCat.getVersion());
         catRepository.save(updatedCat);
     }
 
-    public List<Cat> filterAndSortCats(String nameFilter, Integer minAge, Integer maxAge, String sortBy, Boolean ascending) {
+    public List<Cat> filterAndSortCats(String nameFilter, Integer minAge, Integer maxAge, String sortBy, Boolean ascending, User user) {
         List<Cat> cats = catRepository.findAll();
 
         return cats.stream()
+                .filter(cat -> user == null || (cat.getUser() != null && cat.getUser().getId().equals(user.getId())))
                 .filter(cat -> nameFilter == null || nameFilter.isEmpty() || cat.getName().toLowerCase().contains(nameFilter.toLowerCase()))
                 .filter(cat -> minAge == null || cat.getAge() >= minAge)
                 .filter(cat -> maxAge == null || cat.getAge() <= maxAge)
