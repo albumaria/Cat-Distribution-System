@@ -2,6 +2,7 @@ package com.mariaalbu.catdistributionsystem.service;
 
 import com.mariaalbu.catdistributionsystem.model.Cat;
 import com.mariaalbu.catdistributionsystem.model.User;
+import com.mariaalbu.catdistributionsystem.repository.ICatRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,24 +11,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import net.datafaker.Faker;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class CatGeneratorService {
 
-    private final CatService catService;
+    private final ICatRepository catRepository;
     private final SimpMessagingTemplate messagingTemplate;
     private final Random random = new Random();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private final AtomicBoolean isGenerating = new AtomicBoolean(false);
-    private final Set<String> usedNames = new HashSet<>();
     private final RestTemplate restTemplate = new RestTemplate();
 
     private UUID currentUserId;
@@ -59,8 +58,8 @@ public class CatGeneratorService {
     private static final String CAT_API_KEY = "live_vqheiDqxrBRmftyRK83qVlcbmM4fv8PfvvODBg7XLAQ8DQmcWdrVcutiUoMxkPss";
 
     @Autowired
-    public CatGeneratorService(CatService catService, SimpMessagingTemplate messagingTemplate, UserService userService) {
-        this.catService = catService;
+    public CatGeneratorService(ICatRepository catRepository, SimpMessagingTemplate messagingTemplate, UserService userService) {
+        this.catRepository = catRepository;
         this.messagingTemplate = messagingTemplate;
         this.userService = userService;
     }
@@ -68,7 +67,7 @@ public class CatGeneratorService {
     public void startGenerating(UUID userId) {
         if (isGenerating.compareAndSet(false, true)) {
             this.currentUserId = userId;
-            scheduler.scheduleAtFixedRate(this::generateAndBroadcastCat, 0, 3, TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(this::generateAndBroadcastCat, 0, 1, TimeUnit.NANOSECONDS);
         }
     }
 
@@ -87,10 +86,10 @@ public class CatGeneratorService {
 
             User user = this.userService.getUserById(this.currentUserId);
             newCat.setUser(user);
-            catService.addCat(newCat);
+            this.catRepository.save(newCat);
 
             messagingTemplate.convertAndSend("/topic/cats", newCat);
-            messagingTemplate.convertAndSend("/topic/cats-list", catService.getAllCats());
+            messagingTemplate.convertAndSend("/topic/cats-list", this.catRepository.findAll());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,9 +99,8 @@ public class CatGeneratorService {
         String name;
         Faker faker = new Faker();
         do {
-            name = faker.cat().name();
-        } while (usedNames.contains(name));
-        usedNames.add(name);
+            name = faker.name().firstName() + LocalDateTime.now().getSecond();
+        } while (catRepository.existsByName(name));
         return name;
     }
 
@@ -147,14 +145,14 @@ public class CatGeneratorService {
         return baseDescription;
     }
 
-    private Cat generateRandomCat() {
+    public Cat generateRandomCat() {
         Cat cat = new Cat();
         cat.setName(generateUniqueName());
         cat.setGender(random.nextBoolean() ? "M" : "F");
         cat.setAge(random.nextInt(21));
         cat.setWeight(Math.round((2.5 + random.nextDouble() * 5.5) * 10.0) / 10.0);
         cat.setDescription(generateDescription(cat.getName(), cat.getGender(), cat.getAge()));
-        cat.setImage(fetchCatImage());
+        cat.setImage("https://mymodernmet.com/wp/wp-content/uploads/archive/3SVSdXInLL8ORNm6uCsk_1065304886.jpeg");
 
         return cat;
     }

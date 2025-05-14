@@ -46,23 +46,19 @@ public class CatService {
     }
 
     public List<Cat> filterAndSortCats(String nameFilter, Integer minAge, Integer maxAge, String sortBy, Boolean ascending, User user) {
-        List<Cat> cats = catRepository.findAll();
+        Boolean ascendingValue = ascending != null ? ascending : true;
 
-        return cats.stream()
-                .filter(cat -> user == null || (cat.getUser() != null && cat.getUser().getId().equals(user.getId())))
-                .filter(cat -> nameFilter == null || nameFilter.isEmpty() || cat.getName().toLowerCase().contains(nameFilter.toLowerCase()))
-                .filter(cat -> minAge == null || cat.getAge() >= minAge)
-                .filter(cat -> maxAge == null || cat.getAge() <= maxAge)
-                .sorted((cat1, cat2) -> {
-                    int comparison = 0;
-                    switch (sortBy != null ? sortBy.toLowerCase() : "") {
-                        case "age" -> comparison = Integer.compare(cat1.getAge(), cat2.getAge());
-                        case "name" -> comparison = cat1.getName().compareToIgnoreCase(cat2.getName());
-                        case "weight" -> comparison = Double.compare(cat1.getWeight(), cat2.getWeight());
-                    }
-                    return Boolean.TRUE.equals(ascending) ? comparison : -comparison;
-                })
-                .collect(Collectors.toList());
+        UUID userId = user != null ? user.getId() : null;
+
+        return catRepository.filterAndSortCats(
+                nameFilter,
+                minAge,
+                maxAge,
+                sortBy,
+                ascendingValue,
+                user,
+                userId
+        );
     }
 
     private void validateCat(Cat cat, boolean isUpdate) {
@@ -73,9 +69,9 @@ public class CatService {
         boolean isDuplicateName = catRepository.findAll().stream()
                 .anyMatch(existingCat -> existingCat.getName().equalsIgnoreCase(cat.getName()));
 
-        if (isDuplicateName && !isUpdate) {
-            throw new IllegalArgumentException("A cat with this name already exists.");
-        }
+//        if (isDuplicateName && !isUpdate) {
+//            throw new IllegalArgumentException("A cat with this name already exists.");
+//        }
 
         if (!cat.getGender().equalsIgnoreCase("F") && !cat.getGender().equalsIgnoreCase("M")) {
             throw new IllegalArgumentException("Gender must be 'F' or 'M'.");

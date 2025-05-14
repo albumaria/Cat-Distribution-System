@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public interface IUserRepository extends JpaRepository<User, UUID> {
@@ -17,4 +18,10 @@ public interface IUserRepository extends JpaRepository<User, UUID> {
     @Modifying
     @Query("UPDATE User u SET u.isMonitored = true WHERE u.id = :userId")
     void markAsMonitored(@Param("userId") UUID userId);
+
+    @Query("SELECT u.username FROM User u")
+    Set<String> findAllUsernames();
+
+    @Query("SELECT u.email FROM User u")
+    Set<String> findAllEmails();
 }

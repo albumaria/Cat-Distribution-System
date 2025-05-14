@@ -26,7 +26,7 @@ public class OperationMonitorService {
         this.userRepository = userRepository;
     }
 
-    @Scheduled(fixedRate = 60_000)
+    @Scheduled(fixedRate = 30_000)
     @Transactional
     public void monitorOperations() {
         LocalDateTime cutoff = LocalDateTime.now().minusMinutes(5);

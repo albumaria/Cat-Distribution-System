@@ -23,16 +23,6 @@ const MonitoredUsersPage = () => {
         fetchUsers();
     }, []);
 
-    useEffect(() => {
-        fetchUsers();
-
-        const interval = setInterval(() => {
-            fetchUsers();
-        }, 30000);
-
-        return () => clearInterval(interval);
-    }, []);
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 
