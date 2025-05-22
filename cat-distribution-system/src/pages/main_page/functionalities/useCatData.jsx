@@ -27,7 +27,7 @@ const useCatData = () => {
         isGenerating,
         startGenerator,
         stopGenerator
-    } = useWebSocket('http://localhost:8080/ws-cats')
+    } = useWebSocket('https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/ws-cats')
 
     useEffect(() => {
         const checkUser = () => {

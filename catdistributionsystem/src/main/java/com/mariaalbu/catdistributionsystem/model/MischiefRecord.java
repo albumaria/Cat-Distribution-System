@@ -1,5 +1,6 @@
 package com.mariaalbu.catdistributionsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class MischiefRecord {
     private UUID id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "cat_id", nullable = false)
     private Cat cat;
 

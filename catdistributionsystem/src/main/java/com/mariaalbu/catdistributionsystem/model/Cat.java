@@ -1,5 +1,6 @@
 package com.mariaalbu.catdistributionsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ public class Cat {
     private Long version = 0L;
 
     @ManyToOne
+    @JsonBackReference
     private User user;
 
 }

@@ -51,6 +51,7 @@ public class UserController {
     @PostMapping
     public void addUser(@RequestBody User user) {
         try {
+            user.setIsMonitored(false);
             userService.addUser(user);
         }
         catch (IllegalArgumentException e) {

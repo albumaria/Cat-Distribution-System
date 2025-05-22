@@ -2,7 +2,7 @@ import axios from 'axios';
 import {getUser} from "../utils/UserSession";
 import {addOperationLogBackend} from "./BackendOperationLogManagement";
 
-const API_URL = 'http://localhost:8080/cats';
+const API_URL = 'https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/cats';
 
 export const checkBackendStatus = async () => {
     try {

@@ -56,7 +56,6 @@ const MischiefPage = ({ catEntities }) => {
 
     if (!cat) return <div>Cat not found</div>;
     if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
 
     return (
         <div className="wrapper-mischief">

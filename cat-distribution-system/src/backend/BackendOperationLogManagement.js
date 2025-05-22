@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {getUser} from "../utils/UserSession";
 
-const API_URL = 'http://localhost:8080/operationLogs';
+const API_URL = 'https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/operationLogs';
 
 export const fetchOperationLogsBackend = async () => {
     try {

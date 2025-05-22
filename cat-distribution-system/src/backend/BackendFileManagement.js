@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const FILE_API_URL = 'http://localhost:8080/files';
+const FILE_API_URL = 'https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/files';
 
 export const downloadCatImage = async (catId, catName) => {
     try {

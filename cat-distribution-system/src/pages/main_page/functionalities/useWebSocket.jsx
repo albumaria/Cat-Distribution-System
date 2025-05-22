@@ -80,7 +80,7 @@ const useWebSocket = (url) => {
     const startGenerator = useCallback(async () => {
         try {
             const userId = getUser().id;
-            await fetch(`http://localhost:8080/cats/generator/start?user=${userId}`, { method: 'POST' });
+            await fetch(`https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/cats/generator/start?user=${userId}`, { method: 'POST' });
             setIsGenerating(true);
         } catch (err) {
             console.error('Failed to start generator:', err);
@@ -89,7 +89,7 @@ const useWebSocket = (url) => {
 
     const stopGenerator = useCallback(async () => {
         try {
-            await fetch('http://localhost:8080/cats/generator/stop', { method: 'POST' });
+            await fetch('https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/cats/generator/stop', { method: 'POST' });
             setIsGenerating(false);
         } catch (err) {
             console.error('Failed to stop generator:', err);
