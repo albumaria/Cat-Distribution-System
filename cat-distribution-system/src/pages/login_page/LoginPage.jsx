@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import InputBar from "../../components/input_bars/InputBar";
 import Button from "../../components/buttons/Button";
 import {useNavigate} from "react-router-dom";
-import {getUserBackend} from "../../backend/BackendUserManagement";
+import {getUserBackend, loginUserBackend} from "../../backend/BackendUserManagement";
 import bcrypt from "bcryptjs";
 import PasswordInputBar from "../../components/input_bars/PasswordInputBar";
 import {setUser} from "../../utils/UserSession";
@@ -29,23 +29,20 @@ const LoginPage = () => {
             return;
         }
 
-        const user = await getUserBackend(username);
-
-        if (!user || user.username === "USER_NOT_FOUND") {
-            alert("Invalid username");
-            return;
+        try {
+            const response = await loginUserBackend(username, password);
+            
+            if (response && response.token && response.user) {
+                localStorage.setItem("token", response.token);
+                setUser(response.user);
+                navigate("/main");
+            } else {
+                throw new Error('Invalid login response');
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            alert("Login failed: " + (error.response?.data?.error || "Invalid username or password"));
         }
-
-        const isMatch = await bcrypt.compare(password, user.passwordhash);
-
-        if (!isMatch) {
-            alert("Invalid password");
-            return;
-        }
-
-        setUser(user);
-
-        navigate('/main');
     };
 
     const handleSignUp = () => {

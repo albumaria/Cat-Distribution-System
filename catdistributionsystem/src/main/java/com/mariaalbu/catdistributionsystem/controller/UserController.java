@@ -49,13 +49,17 @@ public class UserController {
     }
 
     @PostMapping
-    public void addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        System.out.println(">>> UserController: POST /users endpoint hit! <<<");
+
         try {
-            user.setIsMonitored(false);
-            userService.addUser(user);
+            System.out.println("reached the endpoint");
+            User registeredUser = userService.registerNewUser(user);
+            return ResponseEntity.ok(registeredUser);
         }
         catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

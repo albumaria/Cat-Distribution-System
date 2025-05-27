@@ -21,6 +21,6 @@ public class CatdistributionsystemApplication {
 
 	@PostConstruct
 	public void generateDataForUsers() {
-		//generateDataService.generateCats();
+
 	}
 }

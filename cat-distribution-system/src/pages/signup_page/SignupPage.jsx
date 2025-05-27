@@ -3,18 +3,17 @@ import InputBar from "../../components/input_bars/InputBar";
 import Button from "../../components/buttons/Button";
 import {useNavigate} from "react-router-dom";
 import {addUserBackend} from "../../backend/BackendUserManagement";
-import bcrypt from 'bcryptjs';
 import PasswordInputBar from "../../components/input_bars/PasswordInputBar";
 
 const SignupPage = () => {
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [passwordhash, setPassword] = useState("");
     const [email, setEmail] = useState("");
 
     const navigate = useNavigate();
 
     const validateInputs = () => {
-        if (!username || !password || !email) {
+        if (!username || !passwordhash || !email) {
             return "All fields are required.";
         }
 
@@ -26,11 +25,6 @@ const SignupPage = () => {
         return null;
     };
 
-    const hashPassword = async (plainTextPassword) => {
-        const saltRounds = 10;
-        return await bcrypt.hash(plainTextPassword, saltRounds);
-    }
-
     const handleSignUp = async () => {
         const validationError = validateInputs();
 
@@ -40,18 +34,23 @@ const SignupPage = () => {
         }
 
         try {
-            const hashedPassword = await hashPassword(password);
             const user = {
                 username,
-                passwordhash: hashedPassword,
+                passwordhash, // Send as password instead of passwordhash
                 email,
-                role: "Regular"
+                role: "Regular",
+                isMonitored: false
             };
+            console.log('handleSignUp: Attempting to register user:', username);
 
-            await addUserBackend(user);
-            navigate("/login");
+            const response = await addUserBackend(user);
+            if (response) {
+                alert("Registration successful! Please login.");
+                navigate("/login");
+            }
         } catch (error) {
-            alert("Signup failed. Please try again.");
+            console.error("Signup error:", error);
+            alert(error.response?.data?.message || "Signup failed. Please try again.");
         }
     };
 
@@ -61,7 +60,7 @@ const SignupPage = () => {
 
             <div className="all-rectangles-add-page bottom-add-page">
                 <InputBar placeHolder="Username" value={username} onChange={(e) => setUsername(e.target.value)}></InputBar>
-                <PasswordInputBar placeHolder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></PasswordInputBar>
+                <PasswordInputBar placeHolder="Password" value={passwordhash} onChange={(e) => setPassword(e.target.value)}></PasswordInputBar>
                 <InputBar placeHolder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></InputBar>
 
                 <Button content="Sign Up" color="#51294B" width="30vw" onClick={handleSignUp}></Button>

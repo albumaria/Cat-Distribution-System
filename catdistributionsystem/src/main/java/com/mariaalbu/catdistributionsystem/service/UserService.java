@@ -1,9 +1,10 @@
 package com.mariaalbu.catdistributionsystem.service;
 
-import com.mariaalbu.catdistributionsystem.model.MischiefRecord;
 import com.mariaalbu.catdistributionsystem.model.User;
 import com.mariaalbu.catdistributionsystem.repository.IUserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,9 +15,12 @@ import java.util.UUID;
 @Service
 public class UserService {
     private final IUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(IUserRepository userRepository) {
+    @Autowired
+    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> getAllUsers() {
@@ -44,5 +48,16 @@ public class UserService {
     public List<User> getMonitoredUsers() {
 
         return userRepository.findByIsMonitoredTrue();
+    }
+
+    @Transactional
+    public User registerNewUser(User user) {
+        System.out.println("reached REGISTER NEW USER");
+        user.setCreatedate(LocalDateTime.now());
+        user.setIsMonitored(false);
+        String rawPassword = user.getPasswordhash();
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        user.setPasswordhash(encodedPassword);
+        return userRepository.save(user);
     }
 }

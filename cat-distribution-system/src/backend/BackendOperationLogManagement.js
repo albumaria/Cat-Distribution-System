@@ -1,24 +1,24 @@
-import axios from 'axios';
+import axiosInstance from './AxiosInstance';
 import {getUser} from "../utils/UserSession";
 
-const API_URL = 'https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/operationLogs';
+const API_URL = '/operationLogs';
 
 export const fetchOperationLogsBackend = async () => {
     try {
-        const response = await axios.get(API_URL);
+        const response = await axiosInstance.get(API_URL);
         return response.data;
-    }
-    catch (error) {
+    } catch (error) {
         console.error("Error fetching operation logs:", error);
+        throw error;
     }
 };
 
 export const addOperationLogBackend = async (operationData) => {
     try {
-        const response = await axios.post(`${API_URL}/${getUser().id}`, operationData);
+        const response = await axiosInstance.post(`${API_URL}/${getUser().id}`, operationData);
         return response.data;
-    }
-    catch (error) {
+    } catch (error) {
         console.error("Error adding operation log:", error);
+        throw error;
     }
 }

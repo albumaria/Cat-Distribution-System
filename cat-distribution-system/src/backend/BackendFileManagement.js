@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axiosInstance from './AxiosInstance';
 
-const FILE_API_URL = 'https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/files';
+const API_URL = '/files';
 
 export const downloadCatImage = async (catId, catName) => {
     try {
-        const response = await axios.get(`${FILE_API_URL}/download/cat-image/${catId}`, {
+        const response = await axiosInstance.get(`${API_URL}/download/cat-image/${catId}`, {
             responseType: 'blob'
         });
 
@@ -43,7 +43,7 @@ export const downloadCatImage = async (catId, catName) => {
 
 export const downloadCatApp = async () => {
     try {
-        const response = await axios.get(`${FILE_API_URL}/download/cat-app`, {
+        const response = await axiosInstance.get(`${API_URL}/download/cat-app`, {
             responseType: 'blob'
         });
 

@@ -14,9 +14,19 @@ public class JdbcConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/CatDistributionDB");
-        dataSource.setUsername("admin");
-        dataSource.setPassword("mafinmafin");
+
+        String serverName = "catdistributiondb.postgres.database.azure.com";
+        String databaseName = "postgres";
+        String username = "postgres";
+        String password = "MafinMafin_10";
+        String port = "5432";
+
+        //String jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s?sslmode=disable", serverName, port, databaseName);
+
+        dataSource.setUrl("jdbc:postgresql://catdistributiondb.postgres.database.azure.com:5432/postgres?user=postgres&password=MafinMafin_10&sslmode=require&connectTimeout=10&socketTimeout=30");
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+
         return dataSource;
     }
 

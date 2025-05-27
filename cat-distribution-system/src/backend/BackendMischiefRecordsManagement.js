@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axiosInstance from './AxiosInstance';
 import {addOperationLogBackend} from "./BackendOperationLogManagement";
 
-const API_URL = "https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/mischief"
+const API_URL = '/mischief';
 
 export const fetchMischiefRecordsBackend = async (catId, descriptionFilter, sortBy, ascending, wasCaught) => {
     try {
@@ -28,7 +28,7 @@ export const fetchMischiefRecordsBackend = async (catId, descriptionFilter, sort
             params.append("wasCaught", wasCaught);
         }
 
-        const response = await axios.get(`https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/mischief/filter-sort?${params.toString()}`);
+        const response = await axiosInstance.get(`${url}?${params.toString()}`);
         return response.data;
     }
     catch (error) {
@@ -39,7 +39,7 @@ export const fetchMischiefRecordsBackend = async (catId, descriptionFilter, sort
 
 export const addMischiefRecordBackend = async (catId, mischiefRecordData) => {
     try {
-        const response = await axios.post(`https://catdistribution-backend-eqfuhfbffzcuandb.polandcentral-01.azurewebsites.net/mischief/${catId}`, mischiefRecordData);
+        const response = await axiosInstance.post(`${API_URL}/${catId}`, mischiefRecordData);
         let operationLog = { action: "Add", entity: "MischiefRecord", performdate: null}
         await addOperationLogBackend(operationLog);
         return response.data;
@@ -52,7 +52,7 @@ export const addMischiefRecordBackend = async (catId, mischiefRecordData) => {
 
 export const deleteMischiefRecordBackend = async (id) => {
     try {
-        const response = await axios.delete(`${API_URL}/${id}`);
+        const response = await axiosInstance.delete(`${API_URL}/${id}`);
         let operationLog = { action: "Delete", entity: "MischiefRecord", performdate: null}
         await addOperationLogBackend(operationLog);
         return response.data;
@@ -70,7 +70,7 @@ export const updateMischiefRecordBackend = async (mischiefRecordData) => {
             throw new Error("Mischief record ID is required for updates");
         }
 
-        const response = await axios.patch(`${API_URL}/${recordId}`, mischiefRecordData);
+        const response = await axiosInstance.patch(`${API_URL}/${recordId}`, mischiefRecordData);
         let operationLog = { action: "Update", entity: "MischiefRecord", performdate: null}
         await addOperationLogBackend(operationLog);
         return response.data;

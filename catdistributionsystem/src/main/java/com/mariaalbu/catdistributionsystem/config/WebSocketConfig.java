@@ -19,7 +19,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws-cats")
-                .setAllowedOrigins("http://localhost:3000")
+                .setAllowedOrigins("https://wonderful-river-05d481003.6.azurestaticapps.net/")
                 .withSockJS();
     }
 }
