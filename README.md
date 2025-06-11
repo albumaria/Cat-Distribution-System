@@ -21,7 +21,7 @@ https://github.com/user-attachments/assets/b029250c-f09c-4180-84ed-92a58435e61d
 - Created tests for the frontend and the crud operations on the backend
 - Added a second entity, the Mischief Record -> The user can now view all mischievious activities of certain cats, browse, delete add or update any record!
 - Now the app has an actual database created in PostgreSQL
-- Added a simple user registration functionality, now users cannot view certain pages unless they are logged in. (No authorization yet)
+- Added a simple user registration functionality, now users cannot view certain pages unless they are logged in
 - Admin users can view suspicious users, which are users who have made a large amount of operations in a short amount of time
 - Authorization -> Each time a user logs in, a Jwt token is generated which will be appended as a parameter to all the requests made by that user from then on, using axios
 - Simple two factor authorization using email -> An email is sent with a random code and the user has to type that code
