@@ -10,10 +10,11 @@ export const loginUserBackend = async (username, password) => {
             password 
         });
         
-        if (response.data.token && response.data.user) {
+        if (response.data.token && response.data.user && response.data.auth) {
             return {
                 token: response.data.token,
-                user: response.data.user
+                user: response.data.user,
+                auth: response.data.auth
             };
         } else {
             throw new Error('Invalid response format');

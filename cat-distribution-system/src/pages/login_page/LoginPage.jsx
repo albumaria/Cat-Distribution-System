@@ -10,6 +10,8 @@ import {setUser} from "../../utils/UserSession";
 const LoginPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [authorization, setAuthorization] = useState("");
+    const [isAuthorizing, setIsAuthorizing] = useState(false);
 
     const navigate = useNavigate();
 
@@ -32,10 +34,13 @@ const LoginPage = () => {
         try {
             const response = await loginUserBackend(username, password);
             
-            if (response && response.token && response.user) {
+            if (response && response.token && response.user && response.auth) {
                 localStorage.setItem("token", response.token);
+                localStorage.setItem("auth", response.auth)
                 setUser(response.user);
-                navigate("/main");
+                setIsAuthorizing(true);
+
+                //navigate("/main");
             } else {
                 throw new Error('Invalid login response');
             }
@@ -49,19 +54,42 @@ const LoginPage = () => {
         navigate('/signup');
     };
 
-    return (
-        <div className="wrapper-add-page">
-            <div className="all-rectangles-add-page header-add-page">Log In</div>
+    const handleAuthentication = () => {
+        const storedAuth = localStorage.getItem("auth");
+        if (authorization === storedAuth) {
+            navigate("/main");
+        } else {
+            alert("Wrong code, try again.");
+        }
+    };
 
-            <div className="all-rectangles-add-page bottom-add-page">
-                <InputBar placeHolder="Username" value={username} onChange={(e) => setUsername(e.target.value)}></InputBar>
-                <PasswordInputBar placeHolder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></PasswordInputBar>
+    if (!isAuthorizing) {
+        return (
+            <div className="wrapper-add-page">
+                <div className="all-rectangles-add-page header-add-page">Log In</div>
 
-                <Button content="Log In" color="#51294B" width="30vw" onClick={handleLogIn}></Button>
-                <Button content="Sign Up" color="#51294B" width="30vw" onClick={handleSignUp}></Button>
+                <div className="all-rectangles-add-page bottom-add-page">
+                    <InputBar placeHolder="Username" value={username} onChange={(e) => setUsername(e.target.value)}></InputBar>
+                    <PasswordInputBar placeHolder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></PasswordInputBar>
+
+                    <Button content="Log In" color="#51294B" width="30vw" onClick={handleLogIn}></Button>
+                    <Button content="Sign Up" color="#51294B" width="30vw" onClick={handleSignUp}></Button>
+                </div>
             </div>
-        </div>
-    );
+        );
+    } else {
+        return (
+            <div className="wrapper-add-page">
+                <div className="all-rectangles-add-page header-add-page">Check your email for 2 factor authorization code</div>
+
+                <div className="all-rectangles-add-page bottom-add-page">
+                    <InputBar placeHolder="Your 7 digit code here" value={authorization} onChange={(e) => setAuthorization(e.target.value)}></InputBar>
+
+                    <Button content="Log In" color="#51294B" width="30vw" onClick={handleAuthentication}></Button>
+                </div>
+            </div>
+        );
+    }
 };
 
 export default LoginPage;
